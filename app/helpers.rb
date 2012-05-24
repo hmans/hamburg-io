@@ -14,6 +14,10 @@ module HamburgIo
     def admin?
       current_user == ['twitter', '645333']
     end
+
+    def resource(klass, options = {})
+      invoke :resource_mounter, options.merge(:class => klass)
+    end
   end
 end
 

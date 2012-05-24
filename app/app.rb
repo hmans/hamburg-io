@@ -27,7 +27,7 @@ module HamburgIo
         redirect! '/'
       end
 
-      invoke :resource_mounter, :class => Event
+      resource Event
 
       redirect! '/events'
     end
