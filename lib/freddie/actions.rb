@@ -41,6 +41,24 @@ module Freddie
       header 'Content-type', type
     end
 
+    def max_age(t, options = {})
+      options = {
+        :public => true,
+        :must_revalidate => true
+      }.merge(options)
+
+      s = []
+      s << 'public' if options[:public]
+      s << 'must-revalidate' if options[:must_revalidate]
+      s << "max-age=#{t.to_i}"
+
+      cache_control s.join(', ')
+    end
+
+    def cache_control(s)
+      header 'Cache-control', s
+    end
+
     def header(name, value)
       response[name] = value
     end
