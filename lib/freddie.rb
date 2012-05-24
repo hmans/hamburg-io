@@ -17,6 +17,7 @@ module Freddie
       @request = Rack::Request.new(env)
       @response = Rack::Response.new
       @remaining_path = @request.path.split('/').reject {|s| s.blank? }
+      @layout = nil
 
       catch :done do
         serve! handle_request
@@ -32,16 +33,26 @@ module Freddie
       # implement this in a subclass
     end
 
-    def serve!(what, options = {})
+    def serve!(data, options = {})
       return unless remaining_path.empty?
-      return unless what.is_a?(String)
+      return unless data.is_a?(String)
+
+      # mix in default options
+      options = {
+        layout: @layout
+      }.merge(options)
 
       # add optional headers et al
       @response.status = options[:status] if options.has_key?(:status)
       @response['Content-type'] = options[:content_type] if options.has_key?(:content_type)
 
+      # apply layout
+      if options[:layout]
+        data = render(options[:layout]) { data }
+      end
+
       # set response body and finish request
-      @response.body = [what]
+      @response.body = [data]
       halt!
     end
 
@@ -49,10 +60,14 @@ module Freddie
       throw message
     end
 
-    def render(what, options = {})
+    def render(what, options = {}, &blk)
       case what
-        when String then Niles::Templates.render(what, self)
+        when String then Niles::Templates.render(what, self, &blk)
       end
+    end
+
+    def layout(name)
+      @layout = name
     end
 
     class << self

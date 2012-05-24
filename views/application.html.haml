@@ -1,0 +1,24 @@
+!!! 5
+%html
+  %head
+    %title hamburg.io
+    %meta{ :"http-equiv" => "content-type", :content => "text/html; charset=UTF-8" }
+    %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }
+    %link{ :href => "/application-123.css", :media => "screen, print", :rel => "stylesheet", :type => "text/css" }
+  %body
+    .container
+      %header
+        %h1
+          %a{href: '/'} hamburg.io
+        %p Veranstaltungen für Entwickler, Designer und andere Online-Leute. In Hamburg.
+
+      = yield
+
+      %footer
+        %p
+          - if current_user.present?
+            = current_user
+
+          Ein Projekt von Hendrik Mans.
+
+    %script{type: "text/javascript", src: "/application-123.js"}
