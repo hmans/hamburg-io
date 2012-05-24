@@ -1,12 +1,14 @@
 require 'freddie/routing'
 require 'freddie/actions'
 require 'freddie/rackable'
+require 'freddie/helpers'
 
 module Freddie
   class Application
     include Routing
     include Actions
     include Rackable
+    include Helpers
 
     attr_reader :options
 
