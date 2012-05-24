@@ -3,7 +3,7 @@ module Freddie
     extend ActiveSupport::Concern
 
     def call(env)
-      @request = Rack::Request.new(env)
+      @request = Freddie::Request.new(env)
       @response = Rack::Response.new
       @remaining_path = @request.path.split('/').reject {|s| s.blank? }
       @layout = nil

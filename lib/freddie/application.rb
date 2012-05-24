@@ -1,3 +1,4 @@
+require 'freddie/request'
 require 'freddie/routing'
 require 'freddie/actions'
 require 'freddie/rackable'
