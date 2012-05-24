@@ -45,6 +45,12 @@ module Freddie
       throw message
     end
 
+    def render(what, options = {})
+      case what
+        when String then Niles::Templates.render(what, self)
+      end
+    end
+
     class << self
       def call(env)
         new.call(env)

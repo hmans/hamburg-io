@@ -15,7 +15,7 @@ class HamburgIoApp < Freddie::Application
       serve! "The current user is: #{current_user}"
     end
 
-    serve! 'home page'
+    serve! render('index.haml')
   end
 
   def current_user
