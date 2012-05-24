@@ -1,11 +1,11 @@
 .event
   .info
     %h3
-      %a{href: event.url}= h event.title
+      %a{href: event.url}=h event.title
     - if event.location.present?
       #{h event.location} -
-    = l event.starts_at, :format => :long
-    = link_to "∞", event, class: 'permalink'
+    =l event.starts_at, :format => :long
+    %a.permalink{href: "/events/%s" % event.id} ∞
 
   - if event.description.present?
     .description= markdown h(event.description)

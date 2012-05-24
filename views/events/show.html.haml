@@ -1,0 +1,12 @@
+- unless @event.verified?
+  .notice
+    Diese Veranstaltung muss noch von uns überprüft werden, bevor
+    sie in der Übersicht angezeigt wird.
+
+= render @event
+
+%hr/
+%p
+  - if admin?
+    = link_to "Bearbeiten", [@event, :edit]
+  = link_to "Zurück zur Übersicht", :events

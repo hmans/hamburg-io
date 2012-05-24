@@ -27,6 +27,33 @@ module HamburgIo
         redirect! '/'
       end
 
+      path 'events' do
+        path :id do
+          @event = Event.find(params['id'])
+
+          get do
+            render 'events/show.html.haml'
+          end
+
+          post do
+            @event.attributes = params['event']
+            if @event.save
+              redirect! @event
+            else
+              render 'events/edit.html.haml'
+            end
+          end
+
+          get 'edit' do
+            render 'events/edit.html.haml'
+          end
+        end
+
+        # display all events
+        @events = Event.all
+        render 'events/index.html.haml'
+      end
+
       # posting and editing of events
       if admin?
         path 'new_event' do
@@ -45,8 +72,7 @@ module HamburgIo
         end
       end
 
-      # display all events
-      render 'index.haml', events: Event.all
+      redirect! '/events'
     end
 
     def current_user
