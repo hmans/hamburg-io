@@ -27,6 +27,12 @@ module Freddie
       throw message
     end
 
+    def redirect!(to, status = 302)
+      header "Location", to
+      response.status = status
+      halt!
+    end
+
     def layout(name)
       @layout = name
     end
