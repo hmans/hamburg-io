@@ -44,43 +44,63 @@ class ResourceMounter < Freddie::Application
     render "#{options[:plural_name]}/#{name}.html.haml"
   end
 
+  def resource
+    options[:class]
+  end
+
+  def set_plural_variable(v)
+    instance_variable_set "@#{options[:plural_name]}", v
+  end
+
+  def plural_variable
+    instance_variable_get "@#{options[:plural_name]}"
+  end
+
+  def set_singular_variable(v)
+    instance_variable_set "@#{options[:singular_name]}", v
+  end
+
+  def singular_variable
+    instance_variable_get "@#{options[:singular_name]}"
+  end
+
   def do_index
-    @events = Event.all
+    set_plural_variable resource.all
     render_resource_template 'index'
   end
 
   def do_show
-    @event = Event.find(params['id'])
+    set_singular_variable resource.find(params['id'])
     render_resource_template 'show'
   end
 
   def do_new
-    @event = Event.new
+    set_singular_variable resource.new
     render_resource_template 'new'
   end
 
   def do_create
-    @event = Event.new(params['event'])
-    if @event.save
-      redirect! @event
+    set_singular_variable resource.new(params[options[:singular_name]])
+    if singular_variable.save
+      redirect! singular_variable
     else
       render_resource_template 'new'
     end
   end
 
   def do_edit
-    @event = Event.find(params['id'])
+    set_singular_variable resource.find(params['id'])
     render_resource_template 'edit'
   end
 
   def do_update
-    @event = Event.find(params['id'])
-    @event.attributes = params['event']
+    set_singular_variable resource.find(params['id'])
+    singular_variable.attributes = params[options[:singular_name]]
 
-    if @event.save
-      redirect! @event
+    if singular_variable.save
+      redirect! singular_variable
     else
-      render 'events/edit.html.haml'
+      render_resource_template 'edit'
     end
   end
 
