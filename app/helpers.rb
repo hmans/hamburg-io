@@ -39,5 +39,47 @@ Freddie :omniauth_callback do
   end
 end
 
-Freddie :resource do
+Freddie :resource_mounter do
+  path 'events' do
+    get 'new' do
+      @event = Event.new
+      render 'events/new.html.haml'
+    end
+
+    path :id do
+      @event = Event.find(params['id'])
+
+      get do
+        render 'events/show.html.haml'
+      end
+
+      post do
+        @event.attributes = params['event']
+        if @event.save
+          redirect! @event
+        else
+          render 'events/edit.html.haml'
+        end
+      end
+
+      get 'edit' do
+        render 'events/edit.html.haml'
+      end
+    end
+
+    post do
+      @event = Event.new(params['event'])
+      if @event.save
+        redirect! @event
+      else
+        render 'events/new.html.haml'
+      end
+    end
+
+    get do
+      # display all events
+      @events = Event.all
+      render 'events/index.html.haml'
+    end
+  end
 end
