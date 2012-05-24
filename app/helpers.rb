@@ -116,31 +116,16 @@ class ResourceMounter < Freddie::Application
 
     puts options.inspect
     path options[:plural_name] do
-      get 'new' do
-        do_new
-      end
+      get('new') { do_new }
 
       path :id do
-        get do
-          do_show
-        end
-
-        post do
-          do_update
-        end
-
-        get 'edit' do
-          do_edit
-        end
+        get         { do_show }
+        post        { do_update }
+        get('edit') { do_edit }
       end
 
-      post do
-        do_create
-      end
-
-      get do
-        do_index
-      end
+      post { do_create }
+      get  { do_index }
     end
   end
 end
