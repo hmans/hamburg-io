@@ -1,0 +1,17 @@
+require 'rubygems'
+require 'bundler/setup'
+Bundler.require
+
+require 'freddie'
+
+# setup i18n
+I18n.load_path += Dir[File.join(File.dirname(__FILE__), 'i18n', '*.yml').to_s]
+I18n.locale = 'de'
+
+# Mongoid::Config.from_hash(
+#   'uri' => ENV['MONGOLAB_URI'] || ENV['MONGOHQ_URL'] || ENV['MONGO_URL'] || 'mongodb://localhost/eventually'
+# )
+
+# class MarkdownRenderer < Redcarpet::Render::HTML
+#   include Redcarpet::Render::SmartyPants
+# end

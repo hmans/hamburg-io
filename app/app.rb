@@ -1,8 +1,4 @@
-require 'rubygems'
-require 'bundler/setup'
-Bundler.require
-
-require 'freddie'
+require_relative "../config/boot"
 
 Freddie(:javascript_packer) do
   content_type 'text/javascript'
