@@ -70,9 +70,48 @@ module Freddie
       @layout = name
     end
 
+    def content_type(type)
+      header 'Content-type', type
+    end
+
+    def header(name, value)
+      response[name] = value
+    end
+
+    def invoke(klass, options = {})
+      klass.invoke(self, options)
+    end
+
     class << self
       def call(env)
         new.call(env)
+      end
+    end
+  end
+
+  class Handler
+    attr_reader :app, :options
+
+    def initialize(app, options = {})
+      @app = app
+      @options = options
+    end
+
+    def invoke
+      # implement this in subclasses
+    end
+
+    def method_missing(name, *args, &blk)
+      if app.respond_to?(name)
+        app.send(name, *args, &blk)
+      else
+        super
+      end
+    end
+
+    class << self
+      def invoke(*args)
+        new(*args).invoke
       end
     end
   end
