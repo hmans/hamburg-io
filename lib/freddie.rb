@@ -1,6 +1,7 @@
 require 'active_support/all'
 
 require 'freddie/routing'
+require 'freddie/actions'
 
 module Freddie
   class FreddieError < StandardError ; end
@@ -8,10 +9,38 @@ module Freddie
 
   class Application
     include Routing
+    include Actions
 
-    attr_reader :request, :response, :remaining_path
+    attr_reader :options
 
-    delegate :params, :to => :request
+    def initialize(delegate_app = nil, options = {})
+      @delegate_app = delegate_app
+      @options = options
+    end
+
+    def request
+      local_or_delegate(:request)
+    end
+
+    def response
+      local_or_delegate(:response)
+    end
+
+    def remaining_path
+      local_or_delegate(:remaining_path)
+    end
+
+    def method_missing(name, *args, &blk)
+      @delegate_app.try(name, *args, &blk) || super
+    end
+
+    def local_or_delegate(name)
+      instance_variable_get("@#{name}") || @delegate_app.send(name)
+    end
+
+    def params
+      request.params
+    end
 
     def call(env)
       @request = Rack::Request.new(env)
@@ -33,85 +62,9 @@ module Freddie
       # implement this in a subclass
     end
 
-    def serve!(data, options = {})
-      return unless remaining_path.empty?
-      return unless data.is_a?(String)
-
-      # mix in default options
-      options = {
-        layout: @layout
-      }.merge(options)
-
-      # add optional headers et al
-      @response.status = options[:status] if options.has_key?(:status)
-      @response['Content-type'] = options[:content_type] if options.has_key?(:content_type)
-
-      # apply layout
-      if options[:layout]
-        data = render(options[:layout]) { data }
-      end
-
-      # set response body and finish request
-      @response.body = [data]
-      halt!
-    end
-
-    def halt!(message = :done)
-      throw message
-    end
-
-    def render(what, options = {}, &blk)
-      case what
-        when String then Niles::Templates.render(what, self, &blk)
-      end
-    end
-
-    def layout(name)
-      @layout = name
-    end
-
-    def content_type(type)
-      header 'Content-type', type
-    end
-
-    def header(name, value)
-      response[name] = value
-    end
-
-    def invoke(klass, options = {})
-      klass.invoke(self, options)
-    end
-
     class << self
       def call(env)
         new.call(env)
-      end
-    end
-  end
-
-  class Handler
-    attr_reader :app, :options
-
-    def initialize(app, options = {})
-      @app = app
-      @options = options
-    end
-
-    def invoke
-      # implement this in subclasses
-    end
-
-    def method_missing(name, *args, &blk)
-      if app.respond_to?(name)
-        app.send(name, *args, &blk)
-      else
-        super
-      end
-    end
-
-    class << self
-      def invoke(*args)
-        new(*args).invoke
       end
     end
   end

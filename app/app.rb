@@ -4,8 +4,8 @@ Bundler.require
 
 require 'freddie'
 
-class JavascriptPacker < Freddie::Handler
-  def invoke
+class JavascriptPacker < Freddie::Application
+  def handle_request
     content_type 'text/javascript'
 
     plain = [options[:files]].flatten.map do |filename|
