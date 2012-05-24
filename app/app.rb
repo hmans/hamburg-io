@@ -33,6 +33,13 @@ class HamburgIoApp < Freddie::Application
     render 'index.haml'
   end
 
+  def markdown(text)
+    @@markdown ||= Redcarpet::Markdown.new(MarkdownRenderer,
+      :autolink => true, :space_after_headers => true, :fenced_code_blocks => true)
+
+    @@markdown.render(text.to_s)
+  end
+
   def current_user
     'hmans'
   end

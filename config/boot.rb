@@ -13,9 +13,9 @@ Mongoid::Config.from_hash(
   'uri' => ENV['MONGOLAB_URI'] || ENV['MONGOHQ_URL'] || ENV['MONGO_URL'] || 'mongodb://localhost/eventually'
 )
 
-# class MarkdownRenderer < Redcarpet::Render::HTML
-#   include Redcarpet::Render::SmartyPants
-# end
+class MarkdownRenderer < Redcarpet::Render::HTML
+  include Redcarpet::Render::SmartyPants
+end
 
 # my own code
 require 'models'
