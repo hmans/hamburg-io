@@ -1,0 +1,49 @@
+de:
+  time:
+    formats:
+      default: "%A, %d. %B %Y, %H:%M Uhr"
+      long: "%A, %d. %B %Y, %H:%M Uhr"
+      short: "%d. %B, %H:%M Uhr"
+
+  date:
+    day_names:
+    - Sonntag
+    - Montag
+    - Dienstag
+    - Mittwoch
+    - Donnerstag
+    - Freitag
+    - Samstag
+
+    month_names:
+    -
+    - Januar
+    - Februar
+    - März
+    - April
+    - Mai
+    - Juni
+    - Juli
+    - August
+    - September
+    - Oktober
+    - November
+    - Dezember
+
+  forms:
+    event:
+      labels:
+        title: Titel
+        url: URL
+        starts_at: Beginn
+        description: Beschreibung
+        location: Ort
+      placeholders:
+        title: 'z.B. "Webmontag Hamburg", "Hacktable", ...'
+        url: "URL zu weiteren Informationen, Anmeldung usw."
+        starts_at: "Wann beginnt die Veranstaltung?"
+        description: "Optionale Beschreibung der Veranstaltung."
+  mongoid:
+    errors:
+      messages:
+        blank: "darf nicht leer sein"

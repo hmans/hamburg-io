@@ -6,7 +6,7 @@ Bundler.require
 require 'freddie'
 
 # setup i18n
-I18n.load_path += Dir[File.join(File.dirname(__FILE__), 'i18n', '*.yml').to_s]
+I18n.load_path += Dir[File.join(File.dirname(__FILE__), '../config/locales', '*.yml').to_s]
 I18n.locale = 'de'
 
 Mongoid::Config.from_hash(
