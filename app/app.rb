@@ -22,17 +22,20 @@ module HamburgIo
       # omniauth callback
       invoke :omniauth_callback
 
-      path 'new_event' do
-        get do
-          render 'new_event.haml', event: Event.new
-        end
+      # posting and editing of events
+      if admin?
+        path 'new_event' do
+          get do
+            render 'new_event.haml', event: Event.new
+          end
 
-        post do
-          event = Event.new(params['event'])
-          if event.save
-            redirect! '/'
-          else
-            render 'new_event.haml', event: event
+          post do
+            event = Event.new(params['event'])
+            if event.save
+              redirect! '/'
+            else
+              render 'new_event.haml', event: event
+            end
           end
         end
       end
@@ -43,6 +46,10 @@ module HamburgIo
 
     def current_user
       session['omniauth.user']
+    end
+
+    def admin?
+      current_user == ['twitter', '645333']
     end
   end
 end
