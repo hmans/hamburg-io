@@ -29,7 +29,7 @@ module Freddie
 
     def render(what, options = {}, &blk)
       case what
-        when String then Niles::Templates.render(what, self, &blk)
+        when String then Niles::Templates.render(what, self, options, &blk)
       end
     end
 
