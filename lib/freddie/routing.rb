@@ -5,7 +5,7 @@ module Freddie
       Regexp.compile('^'+path.gsub(/\)/, ')?').gsub(/\//, '\/').gsub(/\./, '\.').gsub(/:(\w+)/, '(?<\\1>.+)')+'$')
     end
 
-    def path(name = nil, options = {})
+    def path(name = nil, options = {}, &blk)
       if name.present?
         path_match = path_to_regexp(name).match(remaining_path.first)
       end
@@ -21,7 +21,7 @@ module Freddie
           remaining_path.shift
         end
 
-        serve! yield
+        serve! instance_exec(&blk)
 
         # If we get here, #serve decided not to serve.
         raise NotFoundError
