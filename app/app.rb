@@ -11,7 +11,6 @@ module HamburgIo
 
         get 'application-:timestamp.css'  do
           content_type 'text/css'
-          layout false
           render 'application.scss'
         end
 
