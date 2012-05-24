@@ -27,7 +27,19 @@ module HamburgIo
         redirect! '/'
       end
 
+      #invoke :resource, :class => Event
+      mount_events
+
+      redirect! '/events'
+    end
+
+    def mount_events
       path 'events' do
+        get 'new' do
+          @event = Event.new
+          render 'events/new.html.haml'
+        end
+
         path :id do
           @event = Event.find(params['id'])
 
@@ -49,38 +61,22 @@ module HamburgIo
           end
         end
 
-        # display all events
-        @events = Event.all
-        render 'events/index.html.haml'
-      end
-
-      # posting and editing of events
-      if admin?
-        path 'new_event' do
-          get do
-            render 'new_event.haml', event: Event.new
-          end
-
-          post do
-            event = Event.new(params['event'])
-            if event.save
-              redirect! '/'
-            else
-              render 'new_event.haml', event: event
-            end
+        post do
+          @event = Event.new(params['event'])
+          if @event.save
+            redirect! @event
+          else
+            render 'events/new.html.haml'
           end
         end
+
+        get do
+          # display all events
+          @events = Event.all
+          render 'events/index.html.haml'
+        end
       end
-
-      redirect! '/events'
     end
 
-    def current_user
-      session['omniauth.user']
-    end
-
-    def admin?
-      current_user == ['twitter', '645333']
-    end
   end
 end

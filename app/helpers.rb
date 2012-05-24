@@ -6,6 +6,14 @@ module HamburgIo
 
       @@markdown.render(text.to_s)
     end
+
+    def current_user
+      session['omniauth.user']
+    end
+
+    def admin?
+      current_user == ['twitter', '645333']
+    end
   end
 end
 
@@ -29,4 +37,7 @@ Freddie :omniauth_callback do
       end
     end
   end
+end
+
+Freddie :resource do
 end
