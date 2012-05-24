@@ -1,24 +1,31 @@
 module Freddie
   module Actions
     def serve!(data, options = {})
+      # Pass to delegate app if present.
+      @delegate_app.serve!(data, options) if @delegate_app
+
+      # Don't serve if there are still bits of path
+      # remaining.
       return unless remaining_path.empty?
+
+      # Don't serve is data is not a string.
       return unless data.is_a?(String)
 
-      # mix in default options
+      # Mix in default options
       options = {
         layout: @layout
       }.merge(options)
 
-      # add optional headers et al
+      # Add optional headers et al
       @response.status = options[:status] if options.has_key?(:status)
       @response['Content-type'] = options[:content_type] if options.has_key?(:content_type)
 
-      # apply layout
+      # Apply layout, if available
       if options[:layout]
         data = render(options[:layout]) { data }
       end
 
-      # set response body and finish request
+      # Set response body and finish request
       @response.body = [data]
       halt!
     end

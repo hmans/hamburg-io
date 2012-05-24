@@ -11,31 +11,21 @@ module Freddie
     include Rackable
     include Helpers
 
-    attr_reader :options
+    attr_reader :options, :request, :response, :remaining_path
 
     def initialize(delegate_app = nil, options = {})
-      @delegate_app = delegate_app
+      if @delegate_app = delegate_app
+        @request = delegate_app.request
+        @response = delegate_app.response
+        @remaining_path = delegate_app.remaining_path
+      end
+
       @options = options
     end
 
-    def request
-      local_or_delegate(:request)
-    end
-
-    def response
-      local_or_delegate(:response)
-    end
-
-    def remaining_path
-      local_or_delegate(:remaining_path)
-    end
-
     def method_missing(name, *args, &blk)
-      @delegate_app.try(name, *args, &blk) || super
-    end
-
-    def local_or_delegate(name)
-      instance_variable_get("@#{name}") || @delegate_app.send(name)
+      @delegate_app.respond_to?(name) ?
+        @delegate_app.send(name, *args, &blk) : super
     end
 
     def params
