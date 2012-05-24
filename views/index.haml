@@ -1,3 +1,4 @@
-%p hi from index.haml!
+%h1 Veranstaltungen
 
-%p Current user is #{current_user}
+- @events.each do |event|
+  = render '_event.html.haml', event: event
