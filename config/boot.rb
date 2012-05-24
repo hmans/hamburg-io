@@ -1,3 +1,6 @@
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '../lib'))
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '../app'))
+
 require 'rubygems'
 require 'bundler/setup'
 Bundler.require
@@ -19,3 +22,5 @@ end
 
 # my own code
 require 'models'
+require 'helpers'
+require 'app'

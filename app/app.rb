@@ -1,7 +1,3 @@
-require_relative "../config/boot"
-
-require 'helpers'
-
 module HamburgIo
   class Application < Freddie::Application
     include Helpers

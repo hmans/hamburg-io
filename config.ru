@@ -1,6 +1,3 @@
-$LOAD_PATH.unshift('./lib')
-$LOAD_PATH.unshift('./app')
-
-require 'app'
+require './config/boot'
 
 run HamburgIo::Application
