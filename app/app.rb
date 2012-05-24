@@ -7,15 +7,23 @@ require 'freddie'
 class HamburgIoApp < Freddie::Application
   def handle_request
     path 'foo' do
-      get  { serve! 'GET bar' }
-      post { serve! 'POST bar' }
+      get  { 'GETting bar' }
+      post { 'POSTing bar' }
     end
 
     path 'user' do
-      serve! "The current user is: #{current_user}"
+      "The current user is: #{current_user}"
     end
 
-    serve! render('index.haml')
+    path 'hello' do
+      path :name do
+        "Hello, #{params['name']}!"
+      end
+
+      "Please specify a name."
+    end
+
+    render('index.haml')
   end
 
   def current_user

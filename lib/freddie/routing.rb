@@ -17,11 +17,13 @@ module Freddie
         # Transfer variables contained in path name to params hash
         if path_match
           path_match.names.each { |k| request.params[k] = path_match[k] }
+          remaining_path.shift
         end
 
-        p = remaining_path.shift
-        yield
-        remaining_path.unshift(p)
+        serve! yield
+
+        # If we get here, #serve decided not to serve.
+        raise NotFoundError
       end
     end
 

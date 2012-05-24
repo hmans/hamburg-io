@@ -11,13 +11,17 @@ module Freddie
 
     attr_reader :request, :response, :remaining_path
 
+    delegate :params, :to => :request
+
     def call(env)
       @request = Rack::Request.new(env)
       @response = Rack::Response.new
       @remaining_path = @request.path.split('/').reject {|s| s.blank? }
 
       catch :done do
-        handle_request
+        serve! handle_request
+
+        # If we get here, #serve decided not to serve.
         raise NotFoundError
       end
 
@@ -29,8 +33,8 @@ module Freddie
     end
 
     def serve!(what, options = {})
-      # only serve if no path is remainng
       return unless remaining_path.empty?
+      return unless what.is_a?(String)
 
       # add optional headers et al
       @response.status = options[:status] if options.has_key?(:status)
