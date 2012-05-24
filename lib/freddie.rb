@@ -1,7 +1,5 @@
 require 'active_support/all'
-
 require 'freddie/application'
-require 'active_support'
 
 module Freddie
   class FreddieError < StandardError ; end
