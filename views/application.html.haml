@@ -16,7 +16,10 @@
 
       %footer
         %p
-          = session['omniauth.user']
-          Ein Projekt von <a href="http://mans.de">Hendrik Mans</a>.
+          - if current_user.present?
+            = link_to 'Logout', :logout
+          - else
+            = link_to 'Login', '/auth/twitter'
+          &middot; Ein Projekt von <a href="http://mans.de">Hendrik Mans</a>.
 
     %script{type: "text/javascript", src: "/assets/application-123.js"}

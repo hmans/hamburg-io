@@ -22,6 +22,11 @@ module HamburgIo
       # omniauth callback
       invoke :omniauth_callback
 
+      path 'logout' do
+        session['omniauth.user'] = nil
+        redirect! '/'
+      end
+
       # posting and editing of events
       if admin?
         path 'new_event' do
