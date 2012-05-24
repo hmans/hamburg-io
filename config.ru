@@ -1,6 +1,9 @@
 require './config/boot'
 
 use Rack::Session::Cookie
+
+use Rack::Cache if Freddie.env.production?
+
 use OmniAuth::Builder do
   unless Freddie.env.production?
     provider :developer, fields: [:email], uid_field: :email

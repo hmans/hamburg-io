@@ -7,6 +7,7 @@ module HamburgIo
 
       path 'assets' do
         layout false
+        max_age 1.year
 
         get 'application-:timestamp.css'  do
           content_type 'text/css'

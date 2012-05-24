@@ -11,6 +11,7 @@ gem 'thin'
 gem 'schnitzelstyle', github: 'hmans/schnitzelstyle'
 gem 'packr'
 gem 'redcarpet'
+gem 'rack-cache', require: 'rack/cache'
 
 # for models
 gem "mongoid", "~> 2.4"
