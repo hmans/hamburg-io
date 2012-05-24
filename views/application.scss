@@ -1,0 +1,88 @@
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic);
+@import "schnitzelstyle";
+
+$font-default: 17px "PT Sans",Arial,Helvetica,sans-serif;
+
+body {
+  font: $font-default;
+  padding: 50px 0;
+  background-color: #fff;
+  color: #333;
+}
+
+.container {
+  width: 800px;
+  margin: 0 auto;
+}
+
+.container>header {
+  color: #ccc;
+  font-weight: bold;
+  margin-bottom: 50px;
+  font-size: 120%;
+
+  h1 { font-size: 250%; margin: 0; color: #999 }
+  p { margin: 0 }
+  a { text-decoration: none }
+}
+
+.container>footer {
+  margin-top: 100px;
+  color: #ccc;
+  text-align: right;
+}
+
+.event {
+  margin: 2em 0;
+  .info {
+    color: #ccc;
+    font-weight: bold;
+    font-size: 120%;
+    h3 {
+      font-size: 120%;
+      margin: 0;
+      a { color: #333; }
+    }
+
+    a.permalink { display: none; text-decoration: none; color: #ddd; }
+  }
+  .description {
+    margin-left: 3em;
+  }
+
+  &:hover { a.permalink { display: inline-block }}
+}
+
+.notice {
+  color: #900;
+  padding: 1em;
+  border: 1px dotted #900;
+}
+
+hr {
+  border: none;
+  border-bottom: 1px dotted #ccc;
+  height: 0;
+}
+
+form {
+  .input {
+    margin: 0.5em 0;
+    label {
+      font-weight: bold;
+      display: block;
+    }
+    input,textarea,select {
+      font: $font-default;
+    }
+    input {
+      width: 600px;
+    }
+    textarea {
+      width: 600px;
+      height: 150px;
+    }
+
+    .error { color: red }
+  }
+}

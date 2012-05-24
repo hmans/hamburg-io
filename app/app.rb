@@ -6,23 +6,8 @@ require 'freddie'
 
 class HamburgIoApp < Freddie::Application
   def handle_request
-    path 'foo' do
-      get  { 'GETting bar' }
-      post { 'POSTing bar' }
-    end
-
-    path 'user' do
-      "The current user is: #{current_user}"
-    end
-
-    path 'hello' do
-      path :name do
-        "Hello, #{params['name']}!"
-      end
-
-      "Please specify a name."
-    end
-
+    get('application-:timestamp.css') { serve! render('application.scss'), content_type: 'text/css' }
+    get('application-:timestamp.js')  { serve! File.read('views/application.js'), content_type: 'text/javascript' }
     render('index.haml')
   end
 
