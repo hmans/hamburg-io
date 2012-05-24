@@ -19,6 +19,7 @@ module Freddie
 
     def serve!(what, options = {})
       @response.status = options[:status] if options.has_key?(:status)
+      @response['Content-type'] = options[:content_type] if options.has_key?(:content_type)
 
       @response.body = [what]
       halt!
