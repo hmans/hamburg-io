@@ -46,6 +46,7 @@ module Freddie
     end
 
     def invoke(klass, options = {})
+      klass = klass.to_s.classify.constantize if klass.is_a?(Symbol)
       klass.new(self, options).handle_request
     end
   end

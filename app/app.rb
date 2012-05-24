@@ -4,16 +4,14 @@ Bundler.require
 
 require 'freddie'
 
-class JavascriptPacker < Freddie::Application
-  handle_request do
-    content_type 'text/javascript'
+Freddie(:javascript_packer) do
+  content_type 'text/javascript'
 
-    plain = [options[:files]].flatten.map do |filename|
-      File.read("./app/assets/#{filename}")
-    end.join("\n")
+  plain = [options[:files]].flatten.map do |filename|
+    File.read("./app/assets/#{filename}")
+  end.join("\n")
 
-    Packr.pack(plain)
-  end
+  Packr.pack(plain)
 end
 
 class HamburgIoApp < Freddie::Application
@@ -30,7 +28,7 @@ class HamburgIoApp < Freddie::Application
       end
 
       get 'application-:timestamp.js' do
-        invoke JavascriptPacker, :files => 'application.js'
+        invoke :javascript_packer, :files => 'application.js'
       end
     end
 
