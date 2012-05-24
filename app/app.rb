@@ -5,7 +5,7 @@ Bundler.require
 require 'freddie'
 
 class JavascriptPacker < Freddie::Application
-  def handle_request
+  handle_request do
     content_type 'text/javascript'
 
     plain = [options[:files]].flatten.map do |filename|
@@ -17,7 +17,7 @@ class JavascriptPacker < Freddie::Application
 end
 
 class HamburgIoApp < Freddie::Application
-  def handle_request
+  handle_request do
     layout 'application.html.haml'
 
     path 'assets' do

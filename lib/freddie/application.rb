@@ -40,7 +40,15 @@ module Freddie
     end
 
     def handle_request
-      # implement this in a subclass
+      instance_exec(&self.class.request_blk) if self.class.request_blk
+    end
+
+    class << self
+      attr_reader :request_blk
+
+      def handle_request(&blk)
+        @request_blk = blk
+      end
     end
   end
 end
