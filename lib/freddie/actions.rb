@@ -27,12 +27,6 @@ module Freddie
       throw message
     end
 
-    def render(what, options = {}, &blk)
-      case what
-        when String then Niles::Templates.render(what, self, options, &blk)
-      end
-    end
-
     def layout(name)
       @layout = name
     end
