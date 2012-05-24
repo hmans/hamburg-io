@@ -1,15 +1,16 @@
 GIT
+  remote: git://github.com/hmans/niles.git
+  revision: 48ef3d8a8baf00efda819f1fb61935da804b328a
+  specs:
+    niles (0.0.1)
+      tilt (~> 1.3)
+
+GIT
   remote: git://github.com/hmans/schnitzelstyle.git
   revision: 1a922ba3c39eac0001cb778f14821e82277e7784
   specs:
     schnitzelstyle (0.2.0)
       sass (~> 3.2.0.alpha.94)
-
-PATH
-  remote: ../niles
-  specs:
-    niles (0.0.1)
-      tilt (~> 1.3)
 
 GEM
   remote: http://rubygems.org/

@@ -3,7 +3,7 @@ source :rubygems
 # for freddie
 gem 'rack'
 gem 'activesupport'
-gem 'niles', path: '../niles'
+gem 'niles', github: 'hmans/niles'
 
 # application
 gem 'haml'
