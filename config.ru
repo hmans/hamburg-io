@@ -3,4 +3,4 @@ $LOAD_PATH.unshift('./app')
 
 require 'app'
 
-run HamburgIoApp
+run HamburgIo::Application
