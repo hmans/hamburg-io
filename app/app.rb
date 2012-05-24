@@ -28,7 +28,9 @@ class HamburgIoApp < Freddie::Application
       end
     end
 
-    render('index.haml')
+    # display all events
+    @events = Event.all
+    render 'index.haml'
   end
 
   def current_user
