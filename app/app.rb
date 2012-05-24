@@ -23,8 +23,7 @@ module HamburgIo
       invoke :omniauth_callback
 
       # display all events
-      @events = Event.all
-      render 'index.haml'
+      render 'index.haml', events: Event.all
     end
 
     def current_user
