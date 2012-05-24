@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/hmans/niles.git
-  revision: 48ef3d8a8baf00efda819f1fb61935da804b328a
+  revision: 02662c592fcc012fbceca53a74cfdd6cda4693d5
   specs:
     niles (0.0.1)
       tilt (~> 1.3)
@@ -34,24 +34,25 @@ GEM
     method_source (0.7.1)
     mongo (1.6.2)
       bson (~> 1.6.2)
-    mongoid (2.4.9)
+    mongoid (2.4.10)
       activemodel (~> 3.1)
       mongo (~> 1.3)
       tzinfo (~> 0.3.22)
     multi_json (1.3.5)
-    oauth (0.4.5)
+    oauth (0.4.6)
     omniauth (1.1.0)
       hashie (~> 1.2)
       rack
     omniauth-oauth (1.0.1)
       oauth
       omniauth (~> 1.0)
-    omniauth-twitter (0.0.8)
+    omniauth-twitter (0.0.11)
+      multi_json (~> 1.3)
       omniauth-oauth (~> 1.0)
     oyster (0.9.5)
-    packr (3.1.1)
+    packr (3.2.0)
       oyster (>= 0.9.5)
-    pry (0.9.9.4)
+    pry (0.9.9.6)
       coderay (~> 1.0.5)
       method_source (~> 0.7.1)
       slop (>= 2.4.4, < 3)
