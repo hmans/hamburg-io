@@ -7,15 +7,25 @@ module Freddie
 
       catch :done do
         handle_request
-        raise "404"
+        serve! "<h1>404 Not Found</h1>", status: 404
       end
 
       @response
     end
 
     def handle_request
-      @response.body << "hi!"
-      throw :done
+      # implement this in a subclass
+    end
+
+    def serve!(what, options = {})
+      @response.status = options[:status] if options.has_key?(:status)
+
+      @response.body = [what]
+      halt!
+    end
+
+    def halt!(message = :done)
+      throw message
     end
 
     class << self
