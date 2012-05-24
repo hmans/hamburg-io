@@ -28,7 +28,7 @@ module Freddie
     end
 
     def redirect!(to, status = 302)
-      header "Location", to
+      header "Location", url_for(to)
       response.status = status
       halt!
     end
