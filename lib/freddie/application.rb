@@ -41,6 +41,10 @@ module Freddie
       request.params
     end
 
+    def session
+      request.session
+    end
+
     def handle_request
       instance_exec(&self.class.request_blk) if self.class.request_blk
     end

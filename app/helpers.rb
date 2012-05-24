@@ -18,3 +18,15 @@ Freddie(:javascript_packer) do
 
   Packr.pack(plain)
 end
+
+Freddie :omniauth_callback do
+  path 'auth' do
+    path :provider do
+      path 'callback' do
+        auth = request.env['omniauth.auth']
+        session['omniauth.user'] = [auth['provider'], auth['uid']]
+        redirect! '/'
+      end
+    end
+  end
+end

@@ -19,13 +19,16 @@ module HamburgIo
         end
       end
 
+      # omniauth callback
+      invoke :omniauth_callback
+
       # display all events
       @events = Event.all
       render 'index.haml'
     end
 
     def current_user
-      'hmans'
+      session['omniauth.user']
     end
   end
 end

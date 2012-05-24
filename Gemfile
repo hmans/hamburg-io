@@ -19,3 +19,7 @@ gem "bson_ext", "~> 1.5"
 # for rake console
 gem "rake"
 gem "pry"
+
+# for authentication
+gem 'omniauth'
+gem 'omniauth-twitter'
