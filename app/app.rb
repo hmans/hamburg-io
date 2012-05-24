@@ -22,6 +22,21 @@ module HamburgIo
       # omniauth callback
       invoke :omniauth_callback
 
+      path 'new_event' do
+        get do
+          render 'new_event.haml', event: Event.new
+        end
+
+        post do
+          event = Event.new(params['event'])
+          if event.save
+            redirect! '/'
+          else
+            render 'new_event.haml', event: event
+          end
+        end
+      end
+
       # display all events
       render 'index.haml', events: Event.all
     end
