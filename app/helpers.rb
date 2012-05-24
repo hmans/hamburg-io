@@ -39,47 +39,84 @@ Freddie :omniauth_callback do
   end
 end
 
-Freddie :resource_mounter do
-  path 'events' do
-    get 'new' do
-      @event = Event.new
-      render 'events/new.html.haml'
+class ResourceMounter < Freddie::Application
+  def render_resource_template(name)
+    render "#{options[:plural_name]}/#{name}.html.haml"
+  end
+
+  def do_index
+    @events = Event.all
+    render_resource_template 'index'
+  end
+
+  def do_show
+    @event = Event.find(params['id'])
+    render_resource_template 'show'
+  end
+
+  def do_new
+    @event = Event.new
+    render_resource_template 'new'
+  end
+
+  def do_create
+    @event = Event.new(params['event'])
+    if @event.save
+      redirect! @event
+    else
+      render_resource_template 'new'
     end
+  end
 
-    path :id do
-      @event = Event.find(params['id'])
+  def do_edit
+    @event = Event.find(params['id'])
+    render_resource_template 'edit'
+  end
 
-      get do
-        render 'events/show.html.haml'
+  def do_update
+    @event = Event.find(params['id'])
+    @event.attributes = params['event']
+
+    if @event.save
+      redirect! @event
+    else
+      render 'events/edit.html.haml'
+    end
+  end
+
+  def handle_request
+    @options = {
+      singular_name: options[:class].to_s.tableize.singularize,
+      plural_name:   options[:class].to_s.tableize.pluralize
+    }.merge(@options)
+
+    puts options.inspect
+    path options[:plural_name] do
+      get 'new' do
+        do_new
       end
 
-      post do
-        @event.attributes = params['event']
-        if @event.save
-          redirect! @event
-        else
-          render 'events/edit.html.haml'
+      path :id do
+        get do
+          do_show
+        end
+
+        post do
+          do_update
+        end
+
+        get 'edit' do
+          do_edit
         end
       end
 
-      get 'edit' do
-        render 'events/edit.html.haml'
+      post do
+        do_create
       end
-    end
 
-    post do
-      @event = Event.new(params['event'])
-      if @event.save
-        redirect! @event
-      else
-        render 'events/new.html.haml'
+      get do
+        do_index
       end
-    end
-
-    get do
-      # display all events
-      @events = Event.all
-      render 'events/index.html.haml'
     end
   end
 end
