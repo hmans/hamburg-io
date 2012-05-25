@@ -21,23 +21,27 @@ module HamburgIo
   end
 end
 
-Freddie(:javascript_packer) do
-  content_type 'text/javascript'
+class JavaScriptPacker < Freddie::Application
+  route do
+    content_type 'text/javascript'
 
-  plain = [options[:files]].flatten.map do |filename|
-    File.read("./app/assets/#{filename}")
-  end.join("\n")
+    plain = [options[:files]].flatten.map do |filename|
+      File.read("./app/assets/#{filename}")
+    end.join("\n")
 
-  Packr.pack(plain)
+    Packr.pack(plain)
+  end
 end
 
-Freddie :omniauth_callback do
-  path 'auth' do
-    path :provider do
-      path 'callback' do
-        auth = request.env['omniauth.auth']
-        session['omniauth.user'] = [auth['provider'], auth['uid']]
-        redirect! '/'
+class OmniAuthCallback < Freddie::Application
+  route do
+    path 'auth' do
+      path :provider do
+        path 'callback' do
+          auth = request.env['omniauth.auth']
+          session['omniauth.user'] = [auth['provider'], auth['uid']]
+          redirect! '/'
+        end
       end
     end
   end

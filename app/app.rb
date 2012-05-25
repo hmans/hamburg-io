@@ -15,12 +15,12 @@ module HamburgIo
         end
 
         get 'application-:timestamp.js' do
-          invoke :javascript_packer, :files => 'application.js'
+          invoke JavaScriptPacker, :files => 'application.js'
         end
       end
 
       # omniauth callback
-      invoke :omniauth_callback
+      invoke OmniAuthCallback
 
       path 'logout' do
         session['omniauth.user'] = nil
