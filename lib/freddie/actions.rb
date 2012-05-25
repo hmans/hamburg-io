@@ -72,7 +72,7 @@ module Freddie
 
     def invoke(klass, options = {})
       klass = klass.to_s.classify.constantize if klass.is_a?(Symbol)
-      klass.new(self, options).handle_request
+      klass.new(self, options).route
     end
   end
 end

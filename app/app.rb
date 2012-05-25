@@ -2,7 +2,7 @@ module HamburgIo
   class Application < Freddie::Application
     include Helpers
 
-    handle_request do
+    route do
       layout 'application.html.haml'
 
       path 'assets' do

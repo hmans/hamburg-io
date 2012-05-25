@@ -9,7 +9,7 @@ module Freddie
       @layout = nil
 
       catch :done do
-        serve! handle_request
+        serve! route
 
         # If we get here, #serve decided not to serve.
         raise NotFoundError

@@ -108,7 +108,7 @@ class ResourceMounter < Freddie::Application
     end
   end
 
-  def handle_request
+  def route
     @options = {
       singular_name: options[:class].to_s.tableize.singularize,
       plural_name:   options[:class].to_s.tableize.pluralize

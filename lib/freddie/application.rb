@@ -36,15 +36,15 @@ module Freddie
       request.session
     end
 
-    def handle_request
-      instance_exec(&self.class.request_blk) if self.class.request_blk
+    def route
+      instance_exec(&self.class.route_blk) if self.class.route_blk
     end
 
     class << self
-      attr_reader :request_blk
+      attr_reader :route_blk
 
-      def handle_request(&blk)
-        @request_blk = blk
+      def route(&blk)
+        @route_blk = blk
       end
     end
   end
