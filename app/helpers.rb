@@ -16,7 +16,7 @@ module HamburgIo
     end
 
     def resource(klass, options = {})
-      invoke :resource_mounter, options.merge(:class => klass)
+      invoke ResourceMounter, options.merge(:class => klass)
     end
   end
 end
