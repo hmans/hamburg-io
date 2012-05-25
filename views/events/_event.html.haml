@@ -8,4 +8,4 @@
     %a.permalink{href: "/events/%s" % event.id} ∞
 
   - if event.description.present?
-    .description= markdown h(event.description)
+    .description= markdown event.description

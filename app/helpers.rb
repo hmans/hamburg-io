@@ -1,8 +1,10 @@
 module HamburgIo
   module Helpers
     def markdown(text)
-      @@markdown ||= Redcarpet::Markdown.new(MarkdownRenderer,
-        :autolink => true, :space_after_headers => true, :fenced_code_blocks => true)
+      @@markdown ||= Redcarpet::Markdown.new(MarkdownRenderer.new(filter_html: true),
+        :autolink => true,
+        :space_after_headers => true,
+        :fenced_code_blocks => true)
 
       @@markdown.render(text.to_s)
     end
