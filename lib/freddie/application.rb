@@ -14,9 +14,10 @@ module Freddie
       :render, :url_for,
       :to => :context
 
-    def initialize(env = nil, options = {})
+    def initialize(env = nil, options = {}, &blk)
       @env = env
       @options = options
+      instance_exec(&blk) if blk
     end
 
     def route

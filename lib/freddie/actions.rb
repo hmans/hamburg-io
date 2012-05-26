@@ -67,8 +67,8 @@ module Freddie
       response[name] = value
     end
 
-    def invoke(klass, options = {})
-      klass.new(env, options).route
+    def invoke(klass, options = {}, &blk)
+      klass.new(env, options, &blk).route
     end
   end
 end

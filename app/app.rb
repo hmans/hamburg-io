@@ -44,13 +44,20 @@ module HamburgIo
         redirect! '/'
       end
 
-      resource Event
+      resource Event do
+        if context.current_user.try(:admin?)
+          can :manage
+        else
+          can :index, where: { verified: true }
+          can :create
+        end
+      end
 
       redirect! '/events'
     end
 
-    def resource(klass, options = {})
-      invoke ResourceMounter, options.merge(:class => klass)
+    def resource(klass, options = {}, &blk)
+      invoke ResourceMounter, options.merge(:class => klass), &blk
     end
   end
 end

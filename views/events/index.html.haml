@@ -1,4 +1,4 @@
-- if current_user.try(:admin?)
+- if app.can?(:create)
   %p= link_to "Neue Veranstaltung eintragen", :events, :new
 
 = render @events
