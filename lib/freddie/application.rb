@@ -28,6 +28,11 @@ module Freddie
       @env['freddie.context'] ||= self.class.context_class.from_env(@env)
     end
 
+    def helper_method(name)
+      name = name.to_sym
+      eval("context.helper(:#{name}) { |*args| #{name}(*args) }")
+    end
+
     class << self
       attr_reader :route_blk
 

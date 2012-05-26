@@ -163,6 +163,8 @@ class ResourceMounter < Freddie::Application
     }.merge(@options)
 
     path options[:plural_name] do
+      helper_method(:can?)
+
       get('new') { do_new }
 
       path :id do

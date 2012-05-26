@@ -13,6 +13,12 @@ module Freddie
       @response = response
       @remaining_path = @request.path.split('/').reject {|s| s.blank? }
       @layout = nil
+
+      @helpers = {}
+    end
+
+    def helper(name, &blk)
+      @helpers[name.to_sym] = blk
     end
 
     def params
@@ -21,6 +27,14 @@ module Freddie
 
     def session
       request.session
+    end
+
+    def method_missing(name, *args, &blk)
+      if helper_blk = @helpers[name.to_sym]
+        helper_blk.call(*args, &blk)
+      else
+        super
+      end
     end
 
     class << self
