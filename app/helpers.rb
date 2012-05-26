@@ -73,15 +73,13 @@ class ResourceMounter < Freddie::Application
 
   def resource_with_permission_scope(*whats)
     if p = find_permission(*whats)
-      r = resource
-
       if p.is_a?(Hash)
-        r = r.where(p[:where])
+        resource.where(p[:where])
       elsif p.is_a?(Proc)
-        r = r.instance_exec(&p)
+        (p.arity == 0 ? resource.instance_exec(&p) : resource.call(r))
+      else
+        resource
       end
-
-      r
     else
       resource.where(false)
     end
