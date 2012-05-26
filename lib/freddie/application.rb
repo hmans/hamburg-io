@@ -1,34 +1,25 @@
-require 'freddie/request'
 require 'freddie/routing'
 require 'freddie/actions'
 require 'freddie/rackable'
-require 'freddie/helpers'
 
 module Freddie
   class Application
     include Routing
     include Actions
     include Rackable
-    include Helpers
 
-    attr_reader :options, :request, :response, :remaining_path
+    attr_reader :options, :context
+
+    delegate :request, :response, :remaining_path, :params, :session,
+      :render, :url_for,
+      :to => :context
 
     def initialize(delegate_app = nil, options = {})
       if @delegate_app = delegate_app
-        @request = delegate_app.request
-        @response = delegate_app.response
-        @remaining_path = delegate_app.remaining_path
+        @context = delegate_app.context
       end
 
       @options = options
-    end
-
-    def params
-      request.params
-    end
-
-    def session
-      request.session
     end
 
     def route

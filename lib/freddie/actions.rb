@@ -17,8 +17,8 @@ module Freddie
       }.merge(options)
 
       # Add optional headers et al
-      @response.status = options[:status] if options.has_key?(:status)
-      @response['Content-type'] = options[:content_type] if options.has_key?(:content_type)
+      response.status = options[:status] if options.has_key?(:status)
+      response['Content-type'] = options[:content_type] if options.has_key?(:content_type)
 
       # Apply layout, if available
       if options[:layout]
@@ -26,7 +26,7 @@ module Freddie
       end
 
       # Set response body and finish request
-      @response.body = [data]
+      response.body = [data]
       halt!
     end
 

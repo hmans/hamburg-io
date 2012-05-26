@@ -3,6 +3,9 @@ module HamburgIo
     include Helpers
 
     route do
+      # SMELL: mix helpers into context
+      context.extend Helpers
+
       layout 'application.html.haml'
 
       path 'assets' do
