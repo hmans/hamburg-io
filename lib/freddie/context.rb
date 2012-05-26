@@ -6,13 +6,14 @@ module Freddie
     include Helpers
 
     attr_reader   :request, :response, :remaining_path
-    attr_accessor :layout
+    attr_accessor :layout, :app
 
     def initialize(request, response)
       @request  = request
       @response = response
       @remaining_path = @request.path.split('/').reject {|s| s.blank? }
-      @layout = nil
+      @layout   = nil
+      @app      = nil
     end
 
     def params

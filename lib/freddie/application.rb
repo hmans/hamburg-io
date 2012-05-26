@@ -20,6 +20,14 @@ module Freddie
       instance_exec(&blk) if blk
     end
 
+    def perform
+      old_app = context.app
+      context.app = self
+      r = route
+      context.app = old_app
+      r
+    end
+
     def route
       instance_exec(&self.class.route_blk) if self.class.route_blk
     end
