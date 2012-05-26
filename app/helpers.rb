@@ -75,12 +75,14 @@ class ResourceMounter < Freddie::Application
     if p = find_permission(*whats)
       r = resource
 
-      if p.has_key?(:where)
-        r = r.where(p[:where])
-      end
+      if p.is_a?(Hash)
+        if p.has_key?(:where)
+          r = r.where(p[:where])
+        end
 
-      if p.has_key?(:scope)
-        r = r.instance_exec(&p[:scope])
+        if p.has_key?(:scope)
+          r = r.instance_exec(&p[:scope])
+        end
       end
 
       r
