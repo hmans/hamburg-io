@@ -17,7 +17,7 @@
       %footer
         %p
           - if current_user.present?
-            Willkommen, #{h current_user.name}
+            Willkommen, @#{h current_user.name}
             &middot;
             = link_to 'Logout', :logout
           - else
