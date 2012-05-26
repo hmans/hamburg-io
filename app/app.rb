@@ -50,7 +50,7 @@ module HamburgIo
         if context.current_user.try(:admin?)
           can :manage
         else
-          can :index, where: { verified: true }
+          can :index, -> { where(verified: true) }
           can :create
         end
       end

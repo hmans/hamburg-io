@@ -47,10 +47,10 @@ class ResourceMounter < Freddie::Application
   end
 
   def can(*args)
-    options = args.pop if args.last.is_a?(Hash)
+    scope = args.pop if args.last.is_a?(Hash) || args.last.is_a?(Proc)
 
     args.each do |what|
-      permissions[what.to_sym] = options || true
+      permissions[what.to_sym] = scope || true
     end
   end
 
@@ -76,13 +76,9 @@ class ResourceMounter < Freddie::Application
       r = resource
 
       if p.is_a?(Hash)
-        if p.has_key?(:where)
-          r = r.where(p[:where])
-        end
-
-        if p.has_key?(:scope)
-          r = r.instance_exec(&p[:scope])
-        end
+        r = r.where(p[:where])
+      elsif p.is_a?(Proc)
+        r = r.instance_exec(&p)
       end
 
       r
