@@ -14,11 +14,8 @@ module Freddie
       :render, :url_for,
       :to => :context
 
-    def initialize(delegate_app = nil, options = {})
-      if @delegate_app = delegate_app
-        @context = delegate_app.context
-      end
-
+    def initialize(context = nil, options = {})
+      @context = context
       @options = options
     end
 

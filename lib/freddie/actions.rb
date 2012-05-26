@@ -1,9 +1,6 @@
 module Freddie
   module Actions
     def serve!(data, options = {})
-      # Pass to delegate app if present.
-      @delegate_app.serve!(data, options) if @delegate_app
-
       # Don't serve if there are still bits of path
       # remaining.
       return unless remaining_path.empty?
@@ -13,7 +10,7 @@ module Freddie
 
       # Mix in default options
       options = {
-        layout: @layout
+        layout: context.layout
       }.merge(options)
 
       # Add optional headers et al
@@ -41,7 +38,7 @@ module Freddie
     end
 
     def layout(name)
-      @layout = name
+      context.layout = name
     end
 
     def content_type(type)
@@ -71,7 +68,7 @@ module Freddie
     end
 
     def invoke(klass, options = {})
-      klass.new(self, options).route
+      klass.new(context, options).route
     end
   end
 end

@@ -5,7 +5,8 @@ module Freddie
   class Context
     include Helpers
 
-    attr_reader :request, :response, :remaining_path
+    attr_reader   :request, :response, :remaining_path
+    attr_accessor :layout
 
     def initialize(request, response)
       @request  = request
