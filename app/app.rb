@@ -45,10 +45,12 @@ module HamburgIo
       end
 
       resource Event do
+        can :index, -> { where(verified: true) }
+        can :show
+
         if context.current_user.try(:admin?)
           can :manage
-        else
-          can :index, -> { where(verified: true) }
+        elsif context.current_user.present?
           can :create
         end
       end
