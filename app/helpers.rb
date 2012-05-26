@@ -16,7 +16,12 @@ class OmniAuthCallback < Freddie::Application
       path :provider do
         path 'callback' do
           auth = request.env['omniauth.auth']
-          session['omniauth.user'] = [auth['provider'], auth['uid']]
+
+          user = User.find_or_initialize_by :identity => [auth['provider'], auth['uid']]
+          user.name = "Anon"
+          user.save!
+
+          session['user_id'] = user.id
           redirect! '/'
         end
       end

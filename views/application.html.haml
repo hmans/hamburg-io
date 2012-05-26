@@ -17,6 +17,8 @@
       %footer
         %p
           - if current_user.present?
+            Willkommen, #{h current_user.name}
+            &middot;
             = link_to 'Logout', :logout
           - else
             = link_to 'Login', '/auth/twitter'

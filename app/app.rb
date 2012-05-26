@@ -10,11 +10,9 @@ module HamburgIo
     end
 
     def current_user
-      session['omniauth.user']
-    end
-
-    def admin?
-      current_user == ['twitter', '645333']
+      if session['user_id']
+        User.find(session['user_id'])
+      end
     end
   end
 
@@ -42,7 +40,7 @@ module HamburgIo
       invoke OmniAuthCallback
 
       path 'logout' do
-        session['omniauth.user'] = nil
+        session['user_id'] = nil
         redirect! '/'
       end
 

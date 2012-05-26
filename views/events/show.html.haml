@@ -7,6 +7,6 @@
 
 %hr/
 %p
-  - if admin?
+  - if current_user.try(:admin?)
     = link_to "Bearbeiten", [@event, :edit]
   = link_to "Zurück zur Übersicht", :events
