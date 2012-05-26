@@ -45,12 +45,12 @@ module Freddie
         @route_blk = blk
       end
 
-      def use_context(klass)
-        @context_class = klass
+      def helpers(&blk)
+        context_class.class_exec(&blk)
       end
 
       def context_class
-        @context_class || Freddie::Context
+        @context_class ||= Class.new(Freddie::Context)
       end
     end
   end

@@ -1,25 +1,23 @@
 module HamburgIo
-  class Context < Freddie::Context
-    def markdown(text)
-      @@markdown ||= Redcarpet::Markdown.new(MarkdownRenderer.new(escape_html: true),
-        :autolink => true,
-        :space_after_headers => true,
-        :fenced_code_blocks => true)
-
-      @@markdown.render(text.to_s)
-    end
-
-    def current_user
-      if session['user_id']
-        User.find(session['user_id'])
-      end
-    end
-
-    delegate :can?, to: :app
-  end
-
   class Application < Freddie::Application
-    use_context HamburgIo::Context
+    helpers do
+      def markdown(text)
+        @@markdown ||= Redcarpet::Markdown.new(MarkdownRenderer.new(escape_html: true),
+          :autolink => true,
+          :space_after_headers => true,
+          :fenced_code_blocks => true)
+
+        @@markdown.render(text.to_s)
+      end
+
+      def current_user
+        if session['user_id']
+          User.find(session['user_id'])
+        end
+      end
+
+      delegate :can?, to: :app
+    end
 
     route do
       layout 'application.html.haml'
