@@ -7,7 +7,7 @@ module HamburgIo
     #include Helpers
 
     # Use our own context class
-    context HamburgIo::Context
+    use_context HamburgIo::Context
 
     # Route requests
     route do

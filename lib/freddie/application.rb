@@ -34,7 +34,7 @@ module Freddie
         @route_blk = blk
       end
 
-      def context(klass)
+      def use_context(klass)
         @context_class = klass
       end
 
