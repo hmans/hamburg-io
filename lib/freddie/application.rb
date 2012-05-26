@@ -23,11 +23,6 @@ module Freddie
       @options = options
     end
 
-    def method_missing(name, *args, &blk)
-      @delegate_app.respond_to?(name) ?
-        @delegate_app.send(name, *args, &blk) : super
-    end
-
     def params
       request.params
     end
