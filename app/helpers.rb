@@ -39,7 +39,7 @@ class ResourceMounter < Freddie::Application
   DESTROY_PERMISSIONS = [:destroy, :manage]
 
   def render_resource_template(name)
-    render "#{options[:plural_name]}/#{name}.html.haml", app: self
+    render "#{options[:plural_name]}/#{name}.html.haml"
   end
 
   def permissions

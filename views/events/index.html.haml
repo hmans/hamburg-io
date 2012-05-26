@@ -1,4 +1,4 @@
-- if app.can?(:create)
+- if can? :create
   %p= link_to "Neue Veranstaltung eintragen", :events, :new
 
 = render @events
