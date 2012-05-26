@@ -3,7 +3,7 @@ module Freddie
     extend ActiveSupport::Concern
 
     def call(env)
-      @context = Context.from_env(env)
+      @context = self.class.context_class.from_env(env)
 
       catch :done do
         serve! route

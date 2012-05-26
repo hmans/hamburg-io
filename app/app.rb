@@ -1,11 +1,16 @@
 module HamburgIo
+  class Context < Freddie::Context
+    include Helpers
+  end
+
   class Application < Freddie::Application
     include Helpers
 
-    route do
-      # SMELL: mix helpers into context
-      context.extend Helpers
+    # Use our own context class
+    context HamburgIo::Context
 
+    # Route requests
+    route do
       layout 'application.html.haml'
 
       path 'assets' do

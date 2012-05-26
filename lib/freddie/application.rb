@@ -32,6 +32,14 @@ module Freddie
       def route(&blk)
         @route_blk = blk
       end
+
+      def context(klass)
+        @context_class = klass
+      end
+
+      def context_class
+        @context_class || Freddie::Context
+      end
     end
   end
 end
