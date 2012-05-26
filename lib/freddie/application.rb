@@ -14,17 +14,28 @@ module Freddie
       :render, :url_for,
       :to => :context
 
-    def initialize(env = nil, options = {})
+    def initialize(env = nil, options = {}, &blk)
       @env = env
       @options = options
+      instance_exec(&blk) if blk
+    end
+
+    def perform
+      old_app = context.app
+      context.app = self
+      r = route
+      context.app = old_app
+      r
+    end
+
+  private
+
+    def context
+      @env['freddie.context'] ||= self.class.context_class.from_env(@env)
     end
 
     def route
       instance_exec(&self.class.route_blk) if self.class.route_blk
-    end
-
-    def context
-      @env['freddie.context'] ||= self.class.context_class.from_env(@env)
     end
 
     class << self

@@ -30,12 +30,63 @@ class OmniAuthCallback < Freddie::Application
 end
 
 class ResourceMounter < Freddie::Application
+  INDEX_PERMISSIONS   = [:index, :view, :manage]
+  SHOW_PERMISSIONS    = [:show, :view, :manage]
+  NEW_PERMISSIONS     = [:new, :create, :manage]
+  CREATE_PERMISSIONS  = [:create, :manage]
+  EDIT_PERMISSIONS    = [:edit, :update, :manage]
+  UPDATE_PERMISSIONS  = [:update, :manage]
+  DESTROY_PERMISSIONS = [:destroy, :manage]
+
   def render_resource_template(name)
     render "#{options[:plural_name]}/#{name}.html.haml"
   end
 
+  def permissions
+    @permissions ||= {}
+  end
+
+  def can(*args)
+    scope = args.pop if args.last.is_a?(Hash) || args.last.is_a?(Proc)
+
+    args.each do |what|
+      permissions[what.to_sym] = scope || true
+    end
+  end
+
+  def can?(*whats)
+    find_permission(*whats).present?
+  end
+
+  def find_permission(*whats)
+    whats.flatten.each do |what|
+      if p = permissions[what.to_sym]
+        return p
+      end
+    end
+    nil
+  end
+
   def resource
     options[:class]
+  end
+
+  def resource_with_permission_scope(*whats)
+    if p = find_permission(*whats)
+      if p.is_a?(Hash)
+        resource.where(p[:where])
+      elsif p.is_a?(Proc)
+        (p.arity == 0 ? resource.instance_exec(&p) : resource.call(r))
+      else
+        resource
+      end
+    else
+      resource.where(false)
+    end
+  end
+
+  def require_permission!(*args)
+    raise "not allowed" unless can?(*args)
   end
 
   def set_plural_variable(v)
@@ -55,22 +106,27 @@ class ResourceMounter < Freddie::Application
   end
 
   def do_index
-    set_plural_variable resource.all
+    require_permission! INDEX_PERMISSIONS
+    set_plural_variable resource_with_permission_scope(INDEX_PERMISSIONS).all
     render_resource_template 'index'
   end
 
   def do_show
-    set_singular_variable resource.find(params['id'])
+    require_permission! SHOW_PERMISSIONS
+    set_singular_variable resource_with_permission_scope(SHOW_PERMISSIONS).find(params['id'])
     render_resource_template 'show'
   end
 
   def do_new
-    set_singular_variable resource.new
+    require_permission! NEW_PERMISSIONS
+    set_singular_variable resource_with_permission_scope(NEW_PERMISSIONS).new
     render_resource_template 'new'
   end
 
   def do_create
-    set_singular_variable resource.new(params[options[:singular_name]])
+    require_permission! CREATE_PERMISSIONS
+    set_singular_variable resource_with_permission_scope(CREATE_PERMISSIONS).new(params[options[:singular_name]])
+
     if singular_variable.save
       redirect! singular_variable
     else
@@ -79,12 +135,14 @@ class ResourceMounter < Freddie::Application
   end
 
   def do_edit
-    set_singular_variable resource.find(params['id'])
+    require_permission! EDIT_PERMISSIONS
+    set_singular_variable resource_with_permission_scope(EDIT_PERMISSIONS).find(params['id'])
     render_resource_template 'edit'
   end
 
   def do_update
-    set_singular_variable resource.find(params['id'])
+    require_permission! UPDATE_PERMISSIONS
+    set_singular_variable resource_with_permission_scope(UPDATE_PERMISSIONS).find(params['id'])
     singular_variable.attributes = params[options[:singular_name]]
 
     if singular_variable.save

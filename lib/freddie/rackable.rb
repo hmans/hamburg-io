@@ -6,7 +6,7 @@ module Freddie
       @env = env
 
       catch :done do
-        serve! route
+        serve! perform
 
         # If we get here, #serve decided not to serve.
         raise NotFoundError

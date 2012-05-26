@@ -14,6 +14,8 @@ module HamburgIo
         User.find(session['user_id'])
       end
     end
+
+    delegate :can?, to: :app
   end
 
   class Application < Freddie::Application
@@ -44,13 +46,20 @@ module HamburgIo
         redirect! '/'
       end
 
-      resource Event
+      resource Event do
+        if context.current_user.try(:admin?)
+          can :manage
+        else
+          can :index, -> { where(verified: true) }
+          can :create
+        end
+      end
 
       redirect! '/events'
     end
 
-    def resource(klass, options = {})
-      invoke ResourceMounter, options.merge(:class => klass)
+    def resource(klass, options = {}, &blk)
+      invoke ResourceMounter, options.merge(:class => klass), &blk
     end
   end
 end
