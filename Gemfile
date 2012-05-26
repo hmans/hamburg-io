@@ -4,6 +4,7 @@ source :rubygems
 gem 'rack'
 gem 'activesupport'
 gem 'niles', github: 'hmans/niles'
+#gem 'niles', path: '../niles'
 
 # application
 gem 'haml'
@@ -24,3 +25,7 @@ gem "pry"
 # for authentication
 gem 'omniauth'
 gem 'omniauth-twitter'
+
+group :development do
+  gem 'debugger'
+end
