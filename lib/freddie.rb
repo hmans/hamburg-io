@@ -1,4 +1,5 @@
 require 'active_support/all'
+require 'freddie/context'
 require 'freddie/application'
 
 module Freddie

@@ -16,10 +16,6 @@ module HamburgIo
     def admin?
       current_user == ['twitter', '645333']
     end
-
-    def resource(klass, options = {})
-      invoke ResourceMounter, options.merge(:class => klass)
-    end
   end
 end
 
@@ -59,19 +55,19 @@ class ResourceMounter < Freddie::Application
   end
 
   def set_plural_variable(v)
-    instance_variable_set "@#{options[:plural_name]}", v
+    context.instance_variable_set "@#{options[:plural_name]}", v
   end
 
   def plural_variable
-    instance_variable_get "@#{options[:plural_name]}"
+    context.instance_variable_get "@#{options[:plural_name]}"
   end
 
   def set_singular_variable(v)
-    instance_variable_set "@#{options[:singular_name]}", v
+    context.instance_variable_set "@#{options[:singular_name]}", v
   end
 
   def singular_variable
-    instance_variable_get "@#{options[:singular_name]}"
+    context.instance_variable_get "@#{options[:singular_name]}"
   end
 
   def do_index
@@ -120,7 +116,6 @@ class ResourceMounter < Freddie::Application
       plural_name:   options[:class].to_s.tableize.pluralize
     }.merge(@options)
 
-    puts options.inspect
     path options[:plural_name] do
       get('new') { do_new }
 

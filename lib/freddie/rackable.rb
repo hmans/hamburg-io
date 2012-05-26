@@ -3,10 +3,7 @@ module Freddie
     extend ActiveSupport::Concern
 
     def call(env)
-      @request = Freddie::Request.new(env)
-      @response = Rack::Response.new
-      @remaining_path = @request.path.split('/').reject {|s| s.blank? }
-      @layout = nil
+      @env = env
 
       catch :done do
         serve! route
@@ -15,7 +12,7 @@ module Freddie
         raise NotFoundError
       end
 
-      @response
+      response
     end
 
     module ClassMethods
