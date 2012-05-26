@@ -8,19 +8,23 @@ module Freddie
     include Actions
     include Rackable
 
-    attr_reader :options, :context
+    attr_reader :options, :env
 
     delegate :request, :response, :remaining_path, :params, :session,
       :render, :url_for,
       :to => :context
 
-    def initialize(context = nil, options = {})
-      @context = context
+    def initialize(env = nil, options = {})
+      @env = env
       @options = options
     end
 
     def route
       instance_exec(&self.class.route_blk) if self.class.route_blk
+    end
+
+    def context
+      @env['freddie.context'] ||= self.class.context_class.from_env(@env)
     end
 
     class << self

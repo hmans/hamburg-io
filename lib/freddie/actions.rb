@@ -68,7 +68,7 @@ module Freddie
     end
 
     def invoke(klass, options = {})
-      klass.new(context, options).route
+      klass.new(env, options).route
     end
   end
 end
