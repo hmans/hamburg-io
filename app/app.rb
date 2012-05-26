@@ -19,12 +19,8 @@ module HamburgIo
   end
 
   class Application < Freddie::Application
-    #include Helpers
-
-    # Use our own context class
     use_context HamburgIo::Context
 
-    # Route requests
     route do
       layout 'application.html.haml'
 
