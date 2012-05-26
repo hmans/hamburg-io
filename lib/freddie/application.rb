@@ -28,12 +28,14 @@ module Freddie
       r
     end
 
-    def route
-      instance_exec(&self.class.route_blk) if self.class.route_blk
-    end
+  private
 
     def context
       @env['freddie.context'] ||= self.class.context_class.from_env(@env)
+    end
+
+    def route
+      instance_exec(&self.class.route_blk) if self.class.route_blk
     end
 
     class << self

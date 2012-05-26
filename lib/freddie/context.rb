@@ -16,6 +16,8 @@ module Freddie
       @app      = nil
     end
 
+  private
+
     def params
       request.params
     end
