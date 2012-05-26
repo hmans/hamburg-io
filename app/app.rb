@@ -4,7 +4,7 @@ module HamburgIo
   end
 
   class Application < Freddie::Application
-    include Helpers
+    #include Helpers
 
     # Use our own context class
     context HamburgIo::Context
@@ -38,6 +38,10 @@ module HamburgIo
       resource Event
 
       redirect! '/events'
+    end
+
+    def resource(klass, options = {})
+      invoke ResourceMounter, options.merge(:class => klass)
     end
   end
 end
