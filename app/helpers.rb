@@ -1,24 +1,3 @@
-module HamburgIo
-  module Helpers
-    def markdown(text)
-      @@markdown ||= Redcarpet::Markdown.new(MarkdownRenderer.new(escape_html: true),
-        :autolink => true,
-        :space_after_headers => true,
-        :fenced_code_blocks => true)
-
-      @@markdown.render(text.to_s)
-    end
-
-    def current_user
-      session['omniauth.user']
-    end
-
-    def admin?
-      current_user == ['twitter', '645333']
-    end
-  end
-end
-
 class JavaScriptPacker < Freddie::Application
   route do
     content_type 'text/javascript'
