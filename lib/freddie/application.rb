@@ -21,11 +21,9 @@ module Freddie
     end
 
     def perform
-      old_app = context.app
-      context.app = self
-      r = route
-      context.app = old_app
-      r
+      context.with_app(self) do
+        route
+      end
     end
 
   private
