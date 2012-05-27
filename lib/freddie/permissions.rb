@@ -91,8 +91,8 @@ module Freddie
       def expand_permissions(*permissions)
         permissions.flatten.map do |p|
           case p
-            when :manage then [:index, :show, :new, :create, :edit, :update, :destroy]
-            when :view   then [:index, :show]
+            when :manage then [:manage, :index, :show, :new, :create, :edit, :update, :destroy]
+            when :view   then [:view, :index, :show]
             else p
           end
         end.flatten
