@@ -28,4 +28,5 @@ gem 'omniauth-twitter'
 
 group :development do
   gem 'debugger'
+  gem 'awesome_print'
 end
