@@ -9,6 +9,7 @@ gem 'niles', github: 'hmans/niles'
 # application
 gem 'haml'
 gem 'thin'
+gem 'unicorn'
 gem 'schnitzelstyle', github: 'hmans/schnitzelstyle'
 gem 'packr'
 gem 'redcarpet'
@@ -30,3 +31,4 @@ gem 'omniauth-twitter'
 group :development do
   gem 'debugger'
 end
+
