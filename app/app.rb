@@ -1,6 +1,6 @@
 module HamburgIo
   class Application < Freddie::Application
-    helpers do
+    context do
       def markdown(text)
         @@markdown ||= Redcarpet::Markdown.new(MarkdownRenderer.new(escape_html: true),
           :autolink => true,

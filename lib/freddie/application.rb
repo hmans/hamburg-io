@@ -43,7 +43,7 @@ module Freddie
         @route_blk = blk
       end
 
-      def helpers(&blk)
+      def context(&blk)
         context_class.class_exec(&blk)
       end
 
