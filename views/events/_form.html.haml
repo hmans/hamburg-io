@@ -4,4 +4,6 @@
   = f.input :starts_at, :as => :datetime
   = f.input :location
   = f.input :description, :as => :textarea
+  - if can? :manage, Event
+    = f.input :verified
   = f.submit event.new_record? ? "Veranstaltung eintragen" : "Veranstaltung aktualisieren"
