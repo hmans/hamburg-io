@@ -38,7 +38,7 @@ module Freddie
       end
 
       def can?(*args)
-        true
+        find_permission(*args).present?
       end
 
       def can(*args)
@@ -50,11 +50,22 @@ module Freddie
         end
       end
 
+      def find_permission(*args)
+        object  = args.pop unless args.last.is_a?(Symbol)
+
+        args.flatten.each do |verb|
+          if p = permissions[permission_identifier(verb, object)]
+            return p
+          end
+        end
+        nil
+      end
+
     private
 
       def permission_identifier(verb, object)
         raise "Can't use enumerables as verbs" if verb.is_a?(Enumerable)
-        [verb.to_sym, object]
+        [verb.to_sym, object].compact
       end
 
       attr_reader :permissions

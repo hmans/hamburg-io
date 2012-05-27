@@ -28,7 +28,7 @@ module Freddie
       end
 
       def require_permission!(*args)
-        raise "not allowed" unless can?(*args)
+        raise "not allowed" unless can?(*args, options[:class])
       end
 
       def set_plural_variable(v)
