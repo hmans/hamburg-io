@@ -7,14 +7,6 @@ module Freddie
     end
 
     class ResourceMounter < Freddie::Application
-      INDEX_PERMISSIONS   = [:index, :view, :manage]
-      SHOW_PERMISSIONS    = [:show, :view, :manage]
-      NEW_PERMISSIONS     = [:new, :create, :manage]
-      CREATE_PERMISSIONS  = [:create, :manage]
-      EDIT_PERMISSIONS    = [:edit, :update, :manage]
-      UPDATE_PERMISSIONS  = [:update, :manage]
-      DESTROY_PERMISSIONS = [:destroy, :manage]
-
       def render_resource_template(name)
         render "#{options[:plural_name]}/#{name}.html.haml"
       end
@@ -58,26 +50,26 @@ module Freddie
       end
 
       def do_index
-        require_permission! INDEX_PERMISSIONS
-        set_plural_variable resource_with_permission_scope(INDEX_PERMISSIONS).all
+        require_permission! :index
+        set_plural_variable resource_with_permission_scope(:index).all
         render_resource_template 'index'
       end
 
       def do_show
-        require_permission! SHOW_PERMISSIONS
-        set_singular_variable resource_with_permission_scope(SHOW_PERMISSIONS).find(params['id'])
+        require_permission! :show
+        set_singular_variable resource_with_permission_scope(:show).find(params['id'])
         render_resource_template 'show'
       end
 
       def do_new
-        require_permission! NEW_PERMISSIONS
-        set_singular_variable resource_with_permission_scope(NEW_PERMISSIONS).new
+        require_permission! :new
+        set_singular_variable resource_with_permission_scope(:new).new
         render_resource_template 'new'
       end
 
       def do_create
-        require_permission! CREATE_PERMISSIONS
-        set_singular_variable resource_with_permission_scope(CREATE_PERMISSIONS).new(params[options[:singular_name]])
+        require_permission! :create
+        set_singular_variable resource_with_permission_scope(:create).new(params[options[:singular_name]])
 
         if singular_variable.save
           redirect! singular_variable
@@ -87,14 +79,14 @@ module Freddie
       end
 
       def do_edit
-        require_permission! EDIT_PERMISSIONS
-        set_singular_variable resource_with_permission_scope(EDIT_PERMISSIONS).find(params['id'])
+        require_permission! :edit
+        set_singular_variable resource_with_permission_scope(:edit).find(params['id'])
         render_resource_template 'edit'
       end
 
       def do_update
-        require_permission! UPDATE_PERMISSIONS
-        set_singular_variable resource_with_permission_scope(UPDATE_PERMISSIONS).find(params['id'])
+        require_permission! :update
+        set_singular_variable resource_with_permission_scope(:update).find(params['id'])
         singular_variable.attributes = params[options[:singular_name]]
 
         if singular_variable.save

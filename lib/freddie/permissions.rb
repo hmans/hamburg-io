@@ -45,7 +45,7 @@ module Freddie
         options = args.pop if args.last.is_a?(Hash) || args.last.is_a?(Proc)
         object  = args.pop unless args.last.is_a?(Symbol)
 
-        args.flatten.each do |verb|
+        expand_permissions(args).each do |verb|
           permissions[permission_identifier(verb, object)] = options || true
         end
       end
@@ -62,6 +62,16 @@ module Freddie
       end
 
     private
+
+      def expand_permissions(*permissions)
+        permissions.flatten.map do |p|
+          case p
+            when :manage then [:index, :show, :new, :create, :edit, :update, :destroy]
+            when :view   then [:index, :show]
+            else p
+          end
+        end.flatten
+      end
 
       def permission_identifier(verb, object)
         raise "Can't use enumerables as verbs" if verb.is_a?(Enumerable)
