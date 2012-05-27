@@ -15,18 +15,8 @@ module Freddie
         options[:class]
       end
 
-      def resource_with_permission_scope(*whats)
-        if p = context.permissions.find_permission(*whats, options[:class])
-          if p.is_a?(Hash)
-            resource.where(p)
-          elsif p.is_a?(Proc)
-            (p.arity == 0 ? resource.instance_exec(&p) : resource.call(r))
-          else
-            resource
-          end
-        else
-          resource.where(false)
-        end
+      def resource_with_permission_scope(*args)
+        context.permissions.scoped_model(*args, options[:class])
       end
 
       def require_permission!(*args)

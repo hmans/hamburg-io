@@ -7,6 +7,6 @@
 
 %hr/
 %p
-  - if can? :edit, Event
+  - if can? :edit, @event
     = link_to "Bearbeiten", [@event, :edit]
   = link_to "Zurück zur Übersicht", :events

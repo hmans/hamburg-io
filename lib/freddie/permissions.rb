@@ -38,7 +38,16 @@ module Freddie
       end
 
       def can?(*args)
-        find_permission(*args).present?
+        if ![Symbol, Class].include?(args.last.class)
+          thing = args.pop
+          args.push(thing.class)
+        end
+
+        if (p = find_permission(*args)).present?
+          thing ? scoped_model(*args).find(:first, conditions: { id: thing.id }).present? : true
+        else
+          false
+        end
       end
 
       def can(*args)
@@ -47,6 +56,22 @@ module Freddie
 
         expand_permissions(args).each do |verb|
           permissions[permission_identifier(verb, object)] ||= options || true
+        end
+      end
+
+      def scoped_model(*args)
+        model = args.last  # TODO: check that model is a class
+
+        if p = find_permission(*args)
+          if p.is_a?(Hash)
+            model.where(p)
+          elsif p.is_a?(Proc)
+            (p.arity == 0 ? model.instance_exec(&p) : model.call(r))
+          else
+            model
+          end
+        else
+          model.where(false)
         end
       end
 
