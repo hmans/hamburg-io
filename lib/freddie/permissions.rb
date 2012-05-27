@@ -46,7 +46,7 @@ module Freddie
         object  = args.pop unless args.last.is_a?(Symbol)
 
         expand_permissions(args).each do |verb|
-          permissions[permission_identifier(verb, object)] = options || true
+          permissions[permission_identifier(verb, object)] ||= options || true
         end
       end
 
