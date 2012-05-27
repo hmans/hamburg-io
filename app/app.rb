@@ -55,9 +55,5 @@ module HamburgIo
 
       redirect! '/events'
     end
-
-    def resource(klass, options = {}, &blk)
-      invoke ResourceMounter, options.merge(:class => klass), &blk
-    end
   end
 end
