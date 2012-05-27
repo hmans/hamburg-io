@@ -4,7 +4,11 @@ module Freddie
       extend ActiveSupport::Concern
 
       def can?(*args)
-        Permissions.new(self, &self.class.permissions_blk).can?(*args)
+        permissions.can?(*args)
+      end
+
+      def permissions
+        @permissions ||= Permissions.new(self, &self.class.permissions_blk)
       end
 
       module ClassMethods
@@ -29,11 +33,15 @@ module Freddie
     class Permissions
       def initialize(context, &blk)
         @context = context
-        @blk = blk
+        instance_exec(context, &blk)
       end
 
       def can?(*args)
         true
+      end
+
+      def can(*args)
+        puts "cancan!"
       end
     end
   end
