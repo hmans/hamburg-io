@@ -15,8 +15,17 @@ module HamburgIo
           User.find(session['user_id'])
         end
       end
+    end
 
-      delegate :can?, to: :app
+    permissions do |context|
+      can :index, Event, verified: true
+      can :show, Event
+
+      if context.current_user.try(:admin?)
+        can :manage, Event
+      elsif context.current_user.present?
+        can :create, Event
+      end
     end
 
     route do
@@ -44,22 +53,9 @@ module HamburgIo
         redirect! '/'
       end
 
-      resource Event do
-        can :index, -> { where(verified: true) }
-        can :show
-
-        if context.current_user.try(:admin?)
-          can :manage
-        elsif context.current_user.present?
-          can :create
-        end
-      end
+      resource Event
 
       redirect! '/events'
-    end
-
-    def resource(klass, options = {}, &blk)
-      invoke ResourceMounter, options.merge(:class => klass), &blk
     end
   end
 end

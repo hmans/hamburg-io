@@ -7,6 +7,7 @@ module Freddie
 
     attr_reader   :request, :response, :remaining_path
     attr_accessor :layout, :app
+    delegate      :params, :session, :to => :request
 
     def initialize(request, response)
       @request  = request
@@ -16,15 +17,15 @@ module Freddie
       @app      = nil
     end
 
+    def with_app(new_app)
+      old_app = self.app
+      self.app = new_app
+      yield
+    ensure
+      self.app = old_app
+    end
+
   private
-
-    def params
-      request.params
-    end
-
-    def session
-      request.session
-    end
 
     class << self
       def from_env(env)

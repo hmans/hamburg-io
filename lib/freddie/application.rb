@@ -21,11 +21,9 @@ module Freddie
     end
 
     def perform
-      old_app = context.app
-      context.app = self
-      r = route
-      context.app = old_app
-      r
+      context.with_app(self) do
+        route
+      end
     end
 
   private
@@ -50,7 +48,7 @@ module Freddie
       end
 
       def context_class
-        @context_class ||= Class.new(Freddie::Context)
+        Freddie::Context
       end
     end
   end
