@@ -22,7 +22,7 @@ module HamburgIo
       can :show, Event
 
       if context.current_user.present?
-        can :create, Event
+        can :new, :create, Event
 
         if context.current_user.admin?
           can :manage, Event
