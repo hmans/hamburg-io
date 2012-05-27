@@ -171,4 +171,8 @@ class ResourceMounter < Freddie::Application
       get  { do_index }
     end
   end
+
+  helpers do
+    delegate :can?, to: :app
+  end
 end

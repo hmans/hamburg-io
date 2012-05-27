@@ -50,7 +50,7 @@ module Freddie
       end
 
       def context_class
-        @context_class ||= Class.new(Freddie::Context)
+        Freddie::Context
       end
     end
   end

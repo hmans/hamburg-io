@@ -15,8 +15,6 @@ module HamburgIo
           User.find(session['user_id'])
         end
       end
-
-      delegate :can?, to: :app
     end
 
     route do
