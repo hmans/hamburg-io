@@ -17,6 +17,17 @@ module HamburgIo
       end
     end
 
+    permissions do |context|
+      can :index, Event, verified: true
+      can :show, Event
+
+      if context.current_user.try(:admin?)
+        can :manage, Event
+      elsif context.current_user.present?
+        can :create, Event
+      end
+    end
+
     route do
       layout 'application.html.haml'
 
@@ -42,16 +53,7 @@ module HamburgIo
         redirect! '/'
       end
 
-      resource Event do
-        can :index, -> { where(verified: true) }
-        can :show
-
-        if context.current_user.try(:admin?)
-          can :manage
-        elsif context.current_user.present?
-          can :create
-        end
-      end
+      resource Event
 
       redirect! '/events'
     end

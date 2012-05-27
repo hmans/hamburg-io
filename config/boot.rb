@@ -7,6 +7,7 @@ Bundler.require
 
 # framework
 require 'freddie'
+require 'freddie/permissions'
 require 'freddie/resources'
 
 # setup i18n

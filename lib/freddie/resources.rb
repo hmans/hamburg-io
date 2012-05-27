@@ -19,47 +19,12 @@ module Freddie
         render "#{options[:plural_name]}/#{name}.html.haml"
       end
 
-      def permissions
-        @permissions ||= {}
-      end
-
-      def can(*args)
-        scope = args.pop if args.last.is_a?(Hash) || args.last.is_a?(Proc)
-
-        args.each do |what|
-          permissions[what.to_sym] = scope || true
-        end
-      end
-
-      def can?(*whats)
-        find_permission(*whats).present?
-      end
-
-      def find_permission(*whats)
-        whats.flatten.each do |what|
-          if p = permissions[what.to_sym]
-            return p
-          end
-        end
-        nil
-      end
-
       def resource
         options[:class]
       end
 
       def resource_with_permission_scope(*whats)
-        if p = find_permission(*whats)
-          if p.is_a?(Hash)
-            resource.where(p[:where])
-          elsif p.is_a?(Proc)
-            (p.arity == 0 ? resource.instance_exec(&p) : resource.call(r))
-          else
-            resource
-          end
-        else
-          resource.where(false)
-        end
+        resource # TODO
       end
 
       def require_permission!(*args)
@@ -147,10 +112,6 @@ module Freddie
           post { do_create }
           get  { do_index }
         end
-      end
-
-      helpers do
-        delegate :can?, to: :app
       end
     end
   end
