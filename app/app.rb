@@ -1,6 +1,10 @@
 module HamburgIo
   class Application < Freddie::Application
     context do
+      def asset_timestamp
+        (ENV['ASSET_TIMESTAMP'] ||= Time.now.to_i.to_s).to_i
+      end
+
       def markdown(text)
         @@markdown ||= Redcarpet::Markdown.new(MarkdownRenderer.new(escape_html: true),
           :autolink => true,
