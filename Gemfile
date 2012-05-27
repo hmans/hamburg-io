@@ -13,6 +13,7 @@ gem 'schnitzelstyle', github: 'hmans/schnitzelstyle'
 gem 'packr'
 gem 'redcarpet'
 gem 'rack-cache', require: 'rack/cache'
+gem 'awesome_print'
 
 # for models
 gem "mongoid", "~> 2.4"
@@ -28,5 +29,4 @@ gem 'omniauth-twitter'
 
 group :development do
   gem 'debugger'
-  gem 'awesome_print'
 end
