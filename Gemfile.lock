@@ -1,16 +1,20 @@
 GIT
-  remote: git://github.com/hmans/niles.git
-  revision: fb0be60ac493c5d985b3184cfdb14ae076c19abf
-  specs:
-    niles (0.0.1)
-      tilt (~> 1.3)
-
-GIT
   remote: git://github.com/hmans/schnitzelstyle.git
   revision: 1a922ba3c39eac0001cb778f14821e82277e7784
   specs:
     schnitzelstyle (0.2.0)
       sass (~> 3.2.0.alpha.94)
+
+PATH
+  remote: ../allowance
+  specs:
+    allowance (0.0.3)
+
+PATH
+  remote: ../niles
+  specs:
+    niles (0.0.1)
+      tilt (~> 1.3)
 
 GEM
   remote: http://rubygems.org/
@@ -90,6 +94,7 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
+  allowance!
   awesome_print
   bson_ext (~> 1.5)
   debugger

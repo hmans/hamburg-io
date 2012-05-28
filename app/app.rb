@@ -21,20 +21,21 @@ module HamburgIo
       end
     end
 
-    permissions do |context|
-      can :index, Event, verified: true
-      can :show, Event
+    route do
+      context.permissions do |allow|
+        allow.index! Event, verified: true
+        allow.show! Event
 
-      if context.current_user.present?
-        can :new, :create, Event
+        if context.current_user.present?
+          allow.new! Event
+          allow.create! Event
 
-        if context.current_user.admin?
-          can :manage, Event
+          if context.current_user.admin?
+            allow.manage! Event
+          end
         end
       end
-    end
 
-    route do
       layout 'application.html.haml'
 
       path 'assets' do

@@ -3,8 +3,14 @@ source :rubygems
 # for freddie
 gem 'rack'
 gem 'activesupport'
-gem 'niles', github: 'hmans/niles'
-#gem 'niles', path: '../niles'
+
+if ENV['DEV']
+  gem 'niles', path: '../niles'
+  gem 'allowance', path: '../allowance'
+else
+  gem 'niles', github: 'hmans/niles'
+  gem 'allowance', github: 'hmans/allowance'
+end
 
 # application
 gem 'haml'
