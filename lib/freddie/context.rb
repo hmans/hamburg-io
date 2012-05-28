@@ -18,10 +18,17 @@ module Freddie
     end
 
     def with_app(new_app)
+      # remember previous app
       old_app = self.app
       self.app = new_app
+
+      # execute permissions block
+      app.class.permissions_blk.call(permissions, self) if app.class.permissions_blk
+
+      # execute block
       yield
     ensure
+      # switch back to previous app
       self.app = old_app
     end
 

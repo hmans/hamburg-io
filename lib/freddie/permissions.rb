@@ -4,7 +4,7 @@ module Freddie
       extend ActiveSupport::Concern
 
       def permissions(&blk)
-        @permissions ||= Allowance.define(&blk)
+        @permissions ||= Allowance.define
       end
 
       def can?(*args)
@@ -17,6 +17,14 @@ module Freddie
 
       included do
         delegate :can?, :to => :context
+      end
+
+      module ClassMethods
+        attr_accessor :permissions_blk
+
+        def permissions(&blk)
+          self.permissions_blk = blk
+        end
       end
     end
   end
