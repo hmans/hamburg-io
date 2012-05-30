@@ -61,9 +61,13 @@ module HamburgIo
         redirect! '/'
       end
 
-      resource Event, :role => context.current_user.try(:admin?) ? :admin : nil
+      resource Event, :role => resource_role
 
       redirect! '/events'
+    end
+
+    def resource_role
+      context.current_user.try(:admin?) ? :admin : nil
     end
   end
 end
