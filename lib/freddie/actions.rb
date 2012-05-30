@@ -70,5 +70,10 @@ module Freddie
     def invoke(klass, options = {}, &blk)
       klass.new(env, options, &blk).perform
     end
+
+    def run(app)
+      context.response = Rack::Response.new(app.call(request.env))
+      halt!
+    end
   end
 end
