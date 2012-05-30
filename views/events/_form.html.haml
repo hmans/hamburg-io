@@ -1,3 +1,4 @@
+- event.starts_at ||= Time.now.tomorrow.beginning_of_day + 19.hours
 = form_for event do |f|
   = f.input :title
   = f.input :url
