@@ -43,7 +43,7 @@ de:
         title: 'z.B. "Webmontag Hamburg", "Hacktable", ...'
         url: "URL zu weiteren Informationen, Anmeldung usw."
         starts_at: "Wann beginnt die Veranstaltung?"
-        description: "Optionale Beschreibung der Veranstaltung."
+        description: "Optionale Beschreibung der Veranstaltung. Markdown-Formatierung wird unterstützt."
   mongoid:
     errors:
       messages:
