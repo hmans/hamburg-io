@@ -22,7 +22,7 @@ module HamburgIo
     end
 
     permissions do |allow, context|
-      allow.index! Event, verified: true
+      allow.index! Event, -> e { e.verified.in_the_future }
       allow.show! Event
 
       if context.current_user.present?
@@ -31,6 +31,7 @@ module HamburgIo
 
         if context.current_user.admin?
           allow.manage! Event
+          allow.index! Event, -> e { e.in_the_future }
         end
       end
     end
