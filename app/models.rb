@@ -12,6 +12,9 @@ class Event
   validates_presence_of :title, :url, :starts_at
 
   default_scope order_by(starts_at: :asc)
+
+  scope :verified, -> { where(verified: true) }
+  scope :in_the_future, -> { where(:starts_at.gt => Time.now) }
 end
 
 class User
