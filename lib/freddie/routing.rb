@@ -5,26 +5,29 @@ module Freddie
       Regexp.compile('^'+path.gsub(/\)/, ')?').gsub(/\//, '\/').gsub(/\./, '\.').gsub(/:(\w+)/, '(?<\\1>.+)')+'$')
     end
 
-    def path(name = nil, options = {}, &blk)
-      if name.present?
-        path_match = path_to_regexp(name).match(remaining_path.first)
-      end
-
-      method_matched = [nil, request.request_method.downcase.to_sym].include?(options[:method])
-      path_matched   = (path_match || (name.nil? && remaining_path.empty?))
-
-      # Only do something here if method and requested path both match
-      if path_matched && method_matched
-        # Transfer variables contained in path name to params hash
-        if path_match
-          path_match.names.each { |k| request.params[k] = path_match[k] }
-          remaining_path.shift
+    def path(*args, &blk)
+      options = (args.pop if args.last.is_a?(Hash)) || {}
+      args.flatten.each do |name|
+        if name.present?
+          path_match = path_to_regexp(name).match(remaining_path.first)
         end
 
-        serve! instance_exec(&blk)
+        method_matched = [nil, request.request_method.downcase.to_sym].include?(options[:method])
+        path_matched   = (path_match || (name.nil? && remaining_path.empty?))
 
-        # If we get here, #serve decided not to serve.
-        raise NotFoundError
+        # Only do something here if method and requested path both match
+        if path_matched && method_matched
+          # Transfer variables contained in path name to params hash
+          if path_match
+            path_match.names.each { |k| request.params[k] = path_match[k] }
+            remaining_path.shift
+          end
+
+          serve! instance_exec(&blk)
+
+          # If we get here, #serve decided not to serve.
+          raise NotFoundError
+        end
       end
     end
 

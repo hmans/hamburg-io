@@ -72,7 +72,7 @@ module Freddie
     end
 
     def run(app)
-      context.response = Rack::Response.new(app.call(request.env))
+      context.response = app.call(request.env)
       halt!
     end
   end
