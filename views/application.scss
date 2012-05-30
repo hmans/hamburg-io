@@ -34,10 +34,12 @@ body {
 
 .event {
   margin: 2em 0;
+
   .info {
     color: #ccc;
     font-weight: bold;
     font-size: 120%;
+
     h3 {
       font-size: 120%;
       margin: 0;
@@ -46,7 +48,9 @@ body {
 
     a.permalink { display: none; text-decoration: none; color: #ddd; }
   }
-  .description {
+
+  &.unverified {
+    .info { h3 { a { color: #900 !important; }}}
   }
 
   &:hover { a.permalink { display: inline-block }}
@@ -67,15 +71,16 @@ hr {
 form {
   .input {
     margin: 0.5em 0;
-    label {
+    label.for-field {
       font-weight: bold;
       display: block;
     }
+    label.for-checkbox {
+      display: inline-block;
+      margin-left: 1em;
+    }
     input,textarea,select {
       font: $font-default;
-    }
-    input {
-      width: 600px;
     }
     textarea {
       width: 600px;
@@ -83,5 +88,11 @@ form {
     }
 
     .error { color: red }
+
+    &.text {
+      input {
+        width: 600px;
+      }
+    }
   }
 }

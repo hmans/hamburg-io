@@ -38,6 +38,7 @@ de:
         starts_at: Beginn
         description: Beschreibung
         location: Ort
+        verified: Veranstaltung ist verifiziert
       placeholders:
         title: 'z.B. "Webmontag Hamburg", "Hacktable", ...'
         url: "URL zu weiteren Informationen, Anmeldung usw."

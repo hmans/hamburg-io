@@ -5,5 +5,5 @@
   = f.input :location
   = f.input :description, :as => :textarea
   - if can? :manage, Event
-    = f.input :verified
+    = f.input :verified, :as => :checkbox
   = f.submit event.new_record? ? "Veranstaltung eintragen" : "Veranstaltung aktualisieren"
