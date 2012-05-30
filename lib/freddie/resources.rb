@@ -53,13 +53,13 @@ module Freddie
 
       def do_new
         require_permission! :new
-        set_singular_variable resource_with_permission_scope(:new).new
+        set_singular_variable resource_with_permission_scope(:new).new(params[options[:singular_name]], :as => options[:role])
         render_resource_template 'new'
       end
 
       def do_create
         require_permission! :create
-        set_singular_variable resource_with_permission_scope(:create).new(params[options[:singular_name]])
+        set_singular_variable resource_with_permission_scope(:create).new(params[options[:singular_name]], :as => options[:role])
 
         if singular_variable.save
           redirect! singular_variable
@@ -77,7 +77,7 @@ module Freddie
       def do_update
         require_permission! :update
         set_singular_variable resource_with_permission_scope(:update).find(params['id'])
-        singular_variable.attributes = params[options[:singular_name]]
+        singular_variable.assign_attributes params[options[:singular_name]], :as => options[:role]
 
         if singular_variable.save
           redirect! singular_variable
