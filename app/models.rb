@@ -9,6 +9,9 @@ class Event
   field :location,    type: String
   field :verified,    type: Boolean, default: false
 
+  attr_accessible :title, :url, :description, :starts_at, :ends_at, :location
+  attr_accessible :title, :url, :description, :starts_at, :ends_at, :location, :verified, :as => :admin
+
   validates_presence_of :title, :url, :starts_at
 
   default_scope order_by(starts_at: :asc)
