@@ -1,5 +1,5 @@
 module HamburgIo
-  class Application < Freddie::Application
+  class Controller < Freddie::Controller
     context do
       def asset_timestamp
         (ENV['ASSET_TIMESTAMP'] ||= Time.now.to_i.to_s).to_i

@@ -6,30 +6,30 @@ module Freddie
     include Helpers
 
     attr_reader   :request, :response, :remaining_path
-    attr_accessor :layout, :app
+    attr_accessor :layout, :controller
     delegate      :params, :session, :to => :request
 
     def initialize(request, response)
-      @request  = request
-      @response = response
+      @request    = request
+      @response   = response
       @remaining_path = @request.path.split('/').reject {|s| s.blank? }
-      @layout   = nil
-      @app      = nil
+      @layout     = nil
+      @controller = nil
     end
 
-    def with_app(new_app)
-      # remember previous app
-      old_app = self.app
-      self.app = new_app
+    def with_controller(new_controller)
+      # remember previous controller
+      old_controller = self.controller
+      self.controller = new_controller
 
       # execute permissions block
-      app.class.permissions_blk.try(:call, permissions, self)
+      controller.class.permissions_blk.try(:call, permissions, self)
 
       # execute block
       yield
     ensure
-      # switch back to previous app
-      self.app = old_app
+      # switch back to previous controller
+      self.controller = old_controller
     end
 
   private

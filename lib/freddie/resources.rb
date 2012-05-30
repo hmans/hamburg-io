@@ -1,12 +1,12 @@
 module Freddie
   module Resources
-    module ApplicationExtensions
+    module ControllerExtensions
       def resource(klass, options = {}, &blk)
         invoke Freddie::Resources::ResourceMounter, options.merge(:class => klass), &blk
       end
     end
 
-    class ResourceMounter < Freddie::Application
+    class ResourceMounter < Freddie::Controller
       def render_resource_template(name)
         render "#{options[:plural_name]}/#{name}.html.haml"
       end
@@ -109,4 +109,4 @@ module Freddie
   end
 end
 
-Freddie::Application.send(:include, Freddie::Resources::ApplicationExtensions)
+Freddie::Controller.send(:include, Freddie::Resources::ControllerExtensions)

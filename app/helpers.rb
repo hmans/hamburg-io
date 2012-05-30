@@ -1,4 +1,4 @@
-class JavaScriptPacker < Freddie::Application
+class JavaScriptPacker < Freddie::Controller
   route do
     content_type 'text/javascript'
 
@@ -10,7 +10,7 @@ class JavaScriptPacker < Freddie::Application
   end
 end
 
-class OmniAuthCallback < Freddie::Application
+class OmniAuthCallback < Freddie::Controller
   route do
     path 'auth' do
       path :provider do

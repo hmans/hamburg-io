@@ -3,7 +3,7 @@ require 'freddie/actions'
 require 'freddie/rackable'
 
 module Freddie
-  class Application
+  class Controller
     include Routing
     include Actions
     include Rackable
@@ -21,7 +21,7 @@ module Freddie
     end
 
     def perform
-      context.with_app(self) do
+      context.with_controller(self) do
         route
       end
     end

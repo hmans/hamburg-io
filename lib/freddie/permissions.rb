@@ -12,7 +12,7 @@ module Freddie
       end
     end
 
-    module ApplicationExtensions
+    module ControllerExtensions
       extend ActiveSupport::Concern
 
       included do
@@ -31,4 +31,4 @@ module Freddie
 end
 
 Freddie::Context.send(:include, Freddie::Permissions::ContextExtensions)
-Freddie::Application.send(:include, Freddie::Permissions::ApplicationExtensions)
+Freddie::Controller.send(:include, Freddie::Permissions::ControllerExtensions)

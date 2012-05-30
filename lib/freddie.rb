@@ -1,6 +1,6 @@
 require 'active_support/all'
 require 'freddie/context'
-require 'freddie/application'
+require 'freddie/controller'
 
 module Freddie
   class FreddieError < StandardError ; end
