@@ -7,7 +7,9 @@ module Freddie
 
     def path(*args, &blk)
       options = (args.pop if args.last.is_a?(Hash)) || {}
-      args.flatten.each do |name|
+      args = [nil] if args.empty?
+
+      args.each do |name|
         if name.present?
           path_match = path_to_regexp(name).match(remaining_path.first)
         end
@@ -31,20 +33,24 @@ module Freddie
       end
     end
 
-    def get(name = nil, options = {}, &blk)
-      path(name, options.merge(method: :get), &blk)
+    def get(*args, &blk)
+      args.last.is_a?(Hash) ? args.last.merge(method: :get) : args.push(method: :get)
+      path(*args, &blk)
     end
 
-    def post(name = nil, options = {}, &blk)
-      path(name, options.merge(method: :post), &blk)
+    def post(*args, &blk)
+      args.last.is_a?(Hash) ? args.last.merge(method: :post) : args.push(method: :post)
+      path(*args, &blk)
     end
 
-    def put(name = nil, options = {}, &blk)
-      path(name, options.merge(method: :put), &blk)
+    def put(*args, &blk)
+      args.last.is_a?(Hash) ? args.last.merge(method: :put) : args.push(method: :put)
+      path(*args, &blk)
     end
 
-    def delete(name = nil, options = {}, &blk)
-      path(name, options.merge(method: :delete), &blk)
+    def delete(*args, &blk)
+      args.last.is_a?(Hash) ? args.last.merge(method: :delete) : args.push(method: :delete)
+      path(*args, &blk)
     end
   end
 end
