@@ -23,7 +23,7 @@ module Freddie
       self.app = new_app
 
       # execute permissions block
-      app.class.permissions_blk.call(permissions, self) if app.class.permissions_blk
+      app.class.permissions_blk.try(:call, permissions, self)
 
       # execute block
       yield
