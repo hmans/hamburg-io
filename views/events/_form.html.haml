@@ -1,7 +1,7 @@
 = form_for event do |f|
   = f.input :title
   = f.input :url
-  = f.input :starts_at, :as => :datetime
+  = f.input :starts_at, :as => :datetime, :years => (Time.now.year)..(Time.now.year + 1)
   = f.input :location
   = f.input :description, :as => :textarea
   - if can? :manage, Event
