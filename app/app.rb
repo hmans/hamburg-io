@@ -39,6 +39,10 @@ module HamburgIo
     route do
       layout 'application.html.haml'
 
+      path 'favicon.ico', 'images' do
+        invoke Freddie::Static, path: './public'
+      end
+
       path 'assets' do
         layout false
         max_age 1.year

@@ -4,7 +4,7 @@ use Rack::Session::Cookie
 
 use Rack::Cache if Freddie.env.production?
 
-use Rack::Static, :urls => ["/images"], :root => "public"
+#use Rack::Static, :urls => ["/images"], :root => "public"
 
 use OmniAuth::Builder do
   unless Freddie.env.production?
