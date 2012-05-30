@@ -16,12 +16,6 @@
 
       %footer
         %p
-          - if current_user.present?
-            Willkommen, @#{h current_user.name}
-            &middot;
-            = link_to 'Logout', :logout
-          - else
-            = link_to 'Login', '/auth/twitter'
           &middot; Ein Projekt von <a href="http://mans.de">Hendrik Mans</a>.
 
     %script{type: "text/javascript", src: "/assets/application-#{asset_timestamp}.js"}

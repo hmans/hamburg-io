@@ -1,4 +1,20 @@
-- if can? :create, Event
-  %p= link_to "Neue Veranstaltung eintragen", :events, :new
+%p
+  Moin! Hier findest du in der näheren Zukunft in <strong>Hamburg</strong> stattfindende <strong>Veranstaltungen</strong>,
+  die für <strong>Entwickler, Designer und andere Online-Leute</strong> interessant sind.
+  Du bist herzlich eingeladen, noch nicht aufgeführte Veranstaltungen einzutragen!
+
+- if current_user
+  %p
+    Hallo, @#{h current_user.name}!
+    - if can? :create, Event
+      &middot;
+      %strong
+        = link_to "Neue Veranstaltung eintragen", :events, :new
+    &middot;
+    = link_to "Ausloggen", :logout
+- else
+  %p
+    %a{href: '/auth/twitter'}
+      %img{src: '/images/twitter.png'}
 
 = render @events
