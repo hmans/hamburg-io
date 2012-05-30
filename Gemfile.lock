@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: git://github.com/hmans/niles.git
-  revision: da3aa1f319ac173f2e964b65b92b5d12b5903cc6
+  revision: 85fc709d847d4d00f9b49b09e66d03ea7ba043eb
   specs:
     niles (0.0.1)
       tilt (~> 1.3)
