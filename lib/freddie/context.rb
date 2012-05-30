@@ -32,6 +32,10 @@ module Freddie
       self.controller = old_controller
     end
 
+    def response=(r)
+      @response = r
+    end
+
   private
 
     class << self
