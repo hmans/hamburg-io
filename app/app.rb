@@ -40,7 +40,7 @@ module HamburgIo
       layout 'application.html.haml'
 
       path 'favicon.ico', 'images' do
-        invoke Happy::Extensions::Static, path: './public'
+        run Happy::Extensions::Static, path: './public'
       end
 
       path 'assets' do
@@ -53,12 +53,12 @@ module HamburgIo
         end
 
         get 'application-:timestamp.js' do
-          invoke JavaScriptPacker, :files => 'application.js'
+          run JavaScriptPacker, :files => 'application.js'
         end
       end
 
       # omniauth callback
-      invoke OmniAuthCallback
+      run OmniAuthCallback
 
       path 'logout' do
         session['user_id'] = nil
