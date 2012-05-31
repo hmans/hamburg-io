@@ -40,7 +40,7 @@ module HamburgIo
       layout 'application.html.haml'
 
       path 'favicon.ico', 'images' do
-        invoke Happy::Static, path: './public'
+        invoke Happy::Extensions::Static, path: './public'
       end
 
       path 'assets' do
