@@ -1,4 +1,4 @@
-class JavaScriptPacker < Freddie::Controller
+class JavaScriptPacker < Happy::Controller
   route do
     content_type 'text/javascript'
 
@@ -10,7 +10,7 @@ class JavaScriptPacker < Freddie::Controller
   end
 end
 
-class OmniAuthCallback < Freddie::Controller
+class OmniAuthCallback < Happy::Controller
   route do
     path 'auth' do
       path :provider do

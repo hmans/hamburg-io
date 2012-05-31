@@ -1,14 +1,12 @@
 source :rubygems
 
-# for freddie
-gem 'rack'
-gem 'activesupport'
-
 if ENV['DEV']
-  gem 'niles', path: '../niles'
+  gem 'happy', path: '../happy'
+  gem 'happy-helpers', path: '../happy-helpers'
   gem 'allowance', path: '../allowance'
 else
-  gem 'niles', github: 'hmans/niles'
+  gem 'happy', github: 'hmans/happy'
+  gem 'happy-helpers', github: 'hmans/happy-helpers'
   gem 'allowance', github: 'hmans/allowance'
 end
 

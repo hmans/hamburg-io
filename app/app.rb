@@ -1,5 +1,5 @@
 module HamburgIo
-  class Controller < Freddie::Controller
+  class Controller < Happy::Controller
     context do
       def asset_timestamp
         (ENV['ASSET_TIMESTAMP'] ||= Time.now.to_i.to_s).to_i
@@ -40,7 +40,7 @@ module HamburgIo
       layout 'application.html.haml'
 
       path 'favicon.ico', 'images' do
-        invoke Freddie::Static, path: './public'
+        invoke Happy::Static, path: './public'
       end
 
       path 'assets' do

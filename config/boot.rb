@@ -6,9 +6,9 @@ require 'bundler/setup'
 Bundler.require
 
 # framework
-require 'freddie'
-require 'freddie/permissions'
-require 'freddie/resources'
+require 'happy'
+require 'happy/permissions'
+require 'happy/resources'
 
 # setup i18n
 I18n.load_path += Dir[File.join(File.dirname(__FILE__), '../config/locales', '*.yml').to_s]
