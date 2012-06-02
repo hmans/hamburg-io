@@ -65,9 +65,12 @@ module HamburgIo
         redirect! '/'
       end
 
-      resource Event, :role => resource_role
+      (c = Happy::Extensions::Resources::ResourceMounter.new(env,
+        :class => Event,
+        :role => resource_role)
+      ).perform
 
-      redirect! '/events'
+      redirect! c.root_url
     end
 
     def resource_role
