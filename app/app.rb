@@ -21,22 +21,22 @@ module HamburgIo
       end
     end
 
-    permissions do |allow, context|
-      allow.index! Event, -> e { e.verified.in_the_future }
-      allow.show! Event
+    route do
+      # set up permissions
+      can.index! Event, -> e { e.verified.in_the_future }
+      can.show! Event
 
       if context.current_user.present?
-        allow.new! Event
-        allow.create! Event
+        can.new! Event
+        can.create! Event
 
         if context.current_user.admin?
-          allow.manage! Event
-          allow.index! Event, -> e { e.in_the_future }
+          can.manage! Event
+          can.index! Event, -> e { e.in_the_future }
         end
       end
-    end
 
-    route do
+      # execute request
       layout 'application.html.haml'
 
       path 'favicon.ico', 'images' do

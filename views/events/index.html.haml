@@ -6,7 +6,7 @@
 - if current_user
   %p
     Hallo, @#{h current_user.name}!
-    - if can? :create, Event
+    - if can.create? Event
       &middot;
       %strong
         = link_to "Neue Veranstaltung eintragen", :events, :new

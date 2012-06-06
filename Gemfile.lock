@@ -6,9 +6,9 @@ GIT
 
 GIT
   remote: git://github.com/hmans/happy-helpers.git
-  revision: 4b6f3011f7f4018f20d10f12d7a13f14ab2d6dbb
+  revision: b91e8f69c0e96eba3f19a3ff9f78937872dbfed9
   specs:
-    happy-helpers (0.1.0.pre8)
+    happy-helpers (0.1.0.pre9)
       activesupport
       i18n
       money (~> 5.0)
@@ -16,13 +16,13 @@ GIT
 
 GIT
   remote: git://github.com/hmans/happy.git
-  revision: b9989a73a77ed4646126a44cdab682f77e3a9444
+  revision: a85bc5ef8d1232f91a53a666682535fd780559e5
   specs:
-    happy (0.1.0.pre11)
+    happy (0.1.0.pre12)
       activesupport (~> 3.1)
       allowance (>= 0.1.1)
       happy-cli (>= 0.1.0.pre1)
-      happy-helpers (~> 0.1.0.pre8)
+      happy-helpers (~> 0.1.0.pre9)
       rack (~> 1.4)
 
 GIT
@@ -35,16 +35,16 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
-    activemodel (3.2.4)
-      activesupport (= 3.2.4)
+    activemodel (3.2.5)
+      activesupport (= 3.2.5)
       builder (~> 3.0.0)
-    activesupport (3.2.4)
+    activesupport (3.2.5)
       i18n (~> 0.6)
       multi_json (~> 1.0)
     awesome_print (1.0.2)
-    bson (1.6.2)
-    bson_ext (1.6.2)
-      bson (~> 1.6.2)
+    bson (1.6.4)
+    bson_ext (1.6.4)
+      bson (~> 1.6.4)
     builder (3.0.0)
     coderay (1.0.6)
     columnize (0.3.6)
@@ -70,9 +70,9 @@ GEM
       json
     mongo (1.6.2)
       bson (~> 1.6.2)
-    mongoid (2.4.10)
+    mongoid (2.4.11)
       activemodel (~> 3.1)
-      mongo (~> 1.3)
+      mongo (<= 1.6.2)
       tzinfo (~> 0.3.22)
     multi_json (1.3.6)
     oauth (0.4.6)
