@@ -21,8 +21,7 @@ module HamburgIo
       end
     end
 
-    route do
-      # set up permissions
+    def setup_permissions
       can.index! Event, -> e { e.verified.in_the_future }
       can.show! Event
 
@@ -35,8 +34,11 @@ module HamburgIo
           can.index! Event, -> e { e.in_the_future }
         end
       end
+    end
 
-      # execute request
+    route do
+      setup_permissions
+
       layout 'application.html.haml'
 
       path 'favicon.ico', 'images' do
