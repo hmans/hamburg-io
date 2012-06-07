@@ -1,26 +1,26 @@
 module HamburgIo
-  class Controller < Happy::Controller
-    context do
-      def asset_timestamp
-        (ENV['ASSET_TIMESTAMP'] ||= Time.now.to_i.to_s).to_i
-      end
-
-      def markdown(text)
-        @@markdown ||= Redcarpet::Markdown.new(MarkdownRenderer.new(escape_html: true),
-          :autolink => true,
-          :space_after_headers => true,
-          :fenced_code_blocks => true)
-
-        @@markdown.render(text.to_s)
-      end
-
-      def current_user
-        @current_user ||= if session['user_id']
-          User.find(session['user_id'])
-        end
-      end
+  Happy.context do
+    def asset_timestamp
+      (ENV['ASSET_TIMESTAMP'] ||= Time.now.to_i.to_s).to_i
     end
 
+    def markdown(text)
+      @@markdown ||= Redcarpet::Markdown.new(MarkdownRenderer.new(escape_html: true),
+        :autolink => true,
+        :space_after_headers => true,
+        :fenced_code_blocks => true)
+
+      @@markdown.render(text.to_s)
+    end
+
+    def current_user
+      @current_user ||= if session['user_id']
+        User.find(session['user_id'])
+      end
+    end
+  end
+
+  class Controller < Happy::Controller
     def setup_permissions
       can.index! Event, -> e { e.verified.in_the_future }
       can.show! Event
@@ -36,7 +36,7 @@ module HamburgIo
       end
     end
 
-    route do
+    def route
       setup_permissions
 
       layout 'application.html.haml'

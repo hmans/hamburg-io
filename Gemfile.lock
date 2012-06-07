@@ -1,36 +1,33 @@
 GIT
-  remote: git://github.com/hmans/allowance.git
-  revision: 59fa1dc30c0ee459ec6047b222f54831d7b0d923
+  remote: git://github.com/hmans/schnitzelstyle.git
+  revision: 1a922ba3c39eac0001cb778f14821e82277e7784
+  specs:
+    schnitzelstyle (0.2.0)
+      sass (~> 3.2.0.alpha.94)
+
+PATH
+  remote: ../allowance
   specs:
     allowance (0.1.1)
 
-GIT
-  remote: git://github.com/hmans/happy-helpers.git
-  revision: b91e8f69c0e96eba3f19a3ff9f78937872dbfed9
+PATH
+  remote: ../happy
   specs:
-    happy-helpers (0.1.0.pre9)
-      activesupport
-      i18n
-      money (~> 5.0)
-      tilt (~> 1.3)
-
-GIT
-  remote: git://github.com/hmans/happy.git
-  revision: 71bf6d2130804b521d2674501ebd20280506b034
-  specs:
-    happy (0.1.0.pre13)
+    happy (0.1.0.pre14)
       activesupport (~> 3.1)
       allowance (>= 0.1.1)
       happy-cli (>= 0.1.0.pre1)
       happy-helpers (~> 0.1.0.pre9)
       rack (~> 1.4)
 
-GIT
-  remote: git://github.com/hmans/schnitzelstyle.git
-  revision: 1a922ba3c39eac0001cb778f14821e82277e7784
+PATH
+  remote: ../happy-helpers
   specs:
-    schnitzelstyle (0.2.0)
-      sass (~> 3.2.0.alpha.94)
+    happy-helpers (0.1.0.pre9)
+      activesupport
+      i18n
+      money (~> 5.0)
+      tilt (~> 1.3)
 
 GEM
   remote: http://rubygems.org/

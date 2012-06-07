@@ -4,8 +4,6 @@ use Rack::Session::Cookie
 
 use Rack::Cache if Happy.env.production?
 
-#use Rack::Static, :urls => ["/images"], :root => "public"
-
 use OmniAuth::Builder do
   unless Happy.env.production?
     provider :developer, fields: [:email], uid_field: :email
