@@ -7,8 +7,8 @@ Bundler.require
 
 # framework
 require 'happy'
-require 'happy/ext/resources'
-require 'happy/ext/static'
+require 'happy/extras/resources'
+require 'happy/extras/static'
 
 # setup i18n
 I18n.load_path += Dir[File.join(File.dirname(__FILE__), '../config/locales', '*.yml').to_s]

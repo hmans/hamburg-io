@@ -1,5 +1,5 @@
 module HamburgIo
-  Happy.context do
+  class Controller < Happy::Controller
     def asset_timestamp
       (ENV['ASSET_TIMESTAMP'] ||= Time.now.to_i.to_s).to_i
     end
@@ -18,18 +18,20 @@ module HamburgIo
         User.find(session['user_id'])
       end
     end
-  end
 
-  class Controller < Happy::Controller
+    def resource_role
+      current_user.try(:admin?) ? :admin : nil
+    end
+
     def setup_permissions
       can.index! Event, -> e { e.verified.in_the_future }
       can.show! Event
 
-      if context.current_user.present?
+      if current_user.present?
         can.new! Event
         can.create! Event
 
-        if context.current_user.admin?
+        if current_user.admin?
           can.manage! Event
           can.index! Event, -> e { e.in_the_future }
         end
@@ -42,7 +44,11 @@ module HamburgIo
       layout 'application.html.haml'
 
       path 'favicon.ico', 'images' do
-        run Happy::Extensions::Static, path: './public'
+        run Happy::Extras::Static, path: './public'
+      end
+
+      path 'foo' do
+        'bar'
       end
 
       path 'assets' do
@@ -67,16 +73,9 @@ module HamburgIo
         redirect! '/'
       end
 
-      (c = Happy::Extensions::Resources::ResourceMounter.new(env,
-        :class => Event,
-        :role => resource_role)
-      ).perform
+      resource Event, :role => resource_role
 
-      redirect! c.root_url
-    end
-
-    def resource_role
-      context.current_user.try(:admin?) ? :admin : nil
+      redirect! '/events'
     end
   end
 end
