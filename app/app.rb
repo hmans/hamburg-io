@@ -1,26 +1,26 @@
 module HamburgIo
-  class Controller < Happy::Controller
-    def asset_timestamp
-      ENV['ASSET_TIMESTAMP'] ||= Time.now.to_i.to_s
-    end
+  class Application < Happy::Controller
+    include Helpers
 
-    def markdown(text)
-      @@markdown ||= Redcarpet::Markdown.new(MarkdownRenderer.new(escape_html: true),
-        :autolink => true,
-        :space_after_headers => true,
-        :fenced_code_blocks => true)
+    def route
+      setup_permissions
+      layout 'application.html.haml'
 
-      @@markdown.render(text.to_s)
-    end
+      route_assets
+      route_authentication
 
-    def current_user
-      @current_user ||= if session['user_id']
-        User.find(session['user_id'])
-      end
-    end
+      resource Event, :role => resource_role
 
-    def resource_role
-      current_user.try(:admin?) ? :admin : nil
+      redirect! '/events'
+
+      # Auch heiter:
+      #
+      # @events = Happy::Extras::Resources::ResourceMounter.new(self,
+      #   :class => Event, :role => resource_role)
+      #
+      # @events.route
+      #
+      # redirect! @events.root_url
     end
 
     def setup_permissions
@@ -38,11 +38,7 @@ module HamburgIo
       end
     end
 
-    def route
-      setup_permissions
-
-      layout 'application.html.haml'
-
+    def route_assets
       path? 'favicon.ico', 'images' do
         run Happy::Extras::Static, path: './public'
       end
@@ -60,21 +56,16 @@ module HamburgIo
           run JavaScriptPacker, :files => 'application.js'
         end
       end
+    end
 
-      # omniauth callback
+    def route_authentication
       run OmniAuthCallback
 
       path? 'logout' do
         session['user_id'] = nil
         redirect! '/'
       end
-
-      #resource Event, :role => resource_role
-      @events = Happy::Extras::Resources::ResourceMounter.new(self,
-        :class => Event, :role => resource_role)
-      @events.route
-
-      redirect! @events.root_url
     end
+
   end
 end
