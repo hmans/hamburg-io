@@ -34,7 +34,18 @@ body {
     margin-bottom: 50px;
     font-size: 120%;
 
-    h1 { font-size: 250%; margin: 0; color: #c66; text-shadow: rgba(#000, 0.3) 2px 2px 5px; }
+    h1 {
+      display: inline-block;
+      float: left;
+      font-size: 250%;
+      margin-right: 30px;
+      border-radius: 5px;
+      color: #fff;
+      background-color: #e66;
+      padding: 0 15px;
+      // color: #e66;
+      // text-shadow: rgba(#000, 0.3) 2px 2px 5px;
+    }
     p { margin: 0 }
     a { text-decoration: none }
   }
@@ -44,6 +55,15 @@ body {
     color: #bbb;
     text-align: right;
   }
+
+  h2 {
+    color: #696;
+    font-size: 19px;
+    font-weight: bold;
+    border-bottom: 1px solid #696 * 1.3;
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+  }
 }
 
 
@@ -51,7 +71,7 @@ body {
   margin: 2em 0;
 
   .info {
-    color: #ccc;
+    color: #bbb;
     font-weight: bold;
     font-size: 120%;
 
@@ -62,6 +82,11 @@ body {
     }
 
     a.permalink { display: none; text-decoration: none; color: #ddd; }
+  }
+
+  .description {
+    margin: 1em 0;
+    font-size: 15px;
   }
 
   &.unverified {

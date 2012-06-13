@@ -1,3 +1,4 @@
+%h2 Über hamburg.io
 %p
   Moin! Hier findest du in der näheren Zukunft in <strong>Hamburg</strong> stattfindende <strong>Veranstaltungen</strong>,
   die für <strong>Entwickler, Designer und andere Online-Leute</strong> interessant sind.
@@ -17,4 +18,6 @@
     %a{href: '/auth/twitter'}
       %img{src: '/images/twitter.png'}
 
-= render @events
+%h2 Events in der näheren Zukunft
+.events
+  = render @events
