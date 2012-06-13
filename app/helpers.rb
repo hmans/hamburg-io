@@ -9,9 +9,9 @@ JavaScriptPacker = Happy.route do
 end
 
 OmniAuthCallback = Happy.route do
-  path 'auth' do
-    path :provider do
-      path 'callback' do
+  path? 'auth' do
+    path? :provider do
+      path? 'callback' do
         auth = request.env['omniauth.auth']
 
         user = User.find_or_initialize_by :identity => [auth['provider'], auth['uid']]

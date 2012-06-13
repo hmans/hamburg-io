@@ -1,7 +1,7 @@
 module HamburgIo
   class Controller < Happy::Controller
     def asset_timestamp
-      (ENV['ASSET_TIMESTAMP'] ||= Time.now.to_i.to_s).to_i
+      ENV['ASSET_TIMESTAMP'] ||= Time.now.to_i.to_s
     end
 
     def markdown(text)
@@ -43,24 +43,20 @@ module HamburgIo
 
       layout 'application.html.haml'
 
-      path 'favicon.ico', 'images' do
+      path? 'favicon.ico', 'images' do
         run Happy::Extras::Static, path: './public'
       end
 
-      path 'foo' do
-        'bar'
-      end
-
-      path 'assets' do
+      path? 'assets' do
         layout false
         max_age 1.year
 
-        get 'application-:timestamp.css'  do
+        get? 'application-:timestamp.css'  do
           content_type 'text/css'
           render 'application.scss'
         end
 
-        get 'application-:timestamp.js' do
+        get? 'application-:timestamp.js' do
           run JavaScriptPacker, :files => 'application.js'
         end
       end
@@ -68,14 +64,17 @@ module HamburgIo
       # omniauth callback
       run OmniAuthCallback
 
-      path 'logout' do
+      path? 'logout' do
         session['user_id'] = nil
         redirect! '/'
       end
 
-      resource Event, :role => resource_role
+      #resource Event, :role => resource_role
+      @events = Happy::Extras::Resources::ResourceMounter.new(self,
+        :class => Event, :role => resource_role)
+      @events.route
 
-      redirect! '/events'
+      redirect! @events.root_url
     end
   end
 end
