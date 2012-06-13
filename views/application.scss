@@ -75,7 +75,9 @@ body {
 
 
 .event {
-  margin: 2em 0;
+  padding: 1em 0;
+  border-top: 2px dotted #ddd;
+  &:first-child { border-top: none };
 
   .info {
     color: #bbb;
