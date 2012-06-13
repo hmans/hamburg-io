@@ -20,3 +20,6 @@
           Gebaut mit <a href="http://github.com/hmans/happy">Happy</a>.
 
     %script{type: "text/javascript", src: "/assets/application-#{asset_timestamp}.js"}
+
+    - if Happy.env.production?
+      = render 'gauges.erb'
