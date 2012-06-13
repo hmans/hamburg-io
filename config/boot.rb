@@ -12,6 +12,8 @@ require 'happy/extras/static'
 
 # new relic
 require 'newrelic_rpm'
+NewRelic::Agent.manual_start
+Happy::Controller.extend NewRelic::Agent::Instrumentation::Rack
 
 # setup i18n
 I18n.load_path += Dir[File.join(File.dirname(__FILE__), '../config/locales', '*.yml').to_s]
