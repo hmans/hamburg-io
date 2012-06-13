@@ -3,34 +3,48 @@
 
 $font-default: 17px "PT Sans",Arial,Helvetica,sans-serif;
 
+*:first-child { margin-top: 0 !important };
+*:last-child  { margin-bottom: 0 !important };
+
 body {
   font: $font-default;
   padding: 50px 0;
   background-color: #fff;
   color: #333;
+
+  background: url(/images/bg.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .container {
-  width: 800px;
+  width: 900px;
+  max-width: 80%;
   margin: 0 auto;
+  background: rgba(#fff, 0.95);
+  padding: 40px;
+  box-shadow: rgba(#000, 0.5) 3px 3px 15px;
+
+  &>header {
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 50px;
+    font-size: 120%;
+
+    h1 { font-size: 250%; margin: 0; color: #c66; text-shadow: rgba(#000, 0.3) 2px 2px 5px; }
+    p { margin: 0 }
+    a { text-decoration: none }
+  }
+
+  &>footer {
+    margin-top: 100px;
+    color: #bbb;
+    text-align: right;
+  }
 }
 
-.container>header {
-  color: #ccc;
-  font-weight: bold;
-  margin-bottom: 50px;
-  font-size: 120%;
-
-  h1 { font-size: 250%; margin: 0; color: #999 }
-  p { margin: 0 }
-  a { text-decoration: none }
-}
-
-.container>footer {
-  margin-top: 100px;
-  color: #ccc;
-  text-align: right;
-}
 
 .event {
   margin: 2em 0;
