@@ -64,6 +64,13 @@ body {
     margin-top: 1.5em;
     margin-bottom: 1em;
   }
+
+  p.actions {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 3px;
+    background: rgba(#99c, 0.3);
+  }
 }
 
 

@@ -5,7 +5,7 @@
   Du bist herzlich eingeladen, noch nicht aufgeführte Veranstaltungen einzutragen!
 
 - if current_user
-  %p
+  %p.actions
     Hallo, @#{h current_user.name}!
     - if can.create? Event
       &middot;
