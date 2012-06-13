@@ -20,6 +20,9 @@ gem 'redcarpet'
 gem 'rack-cache', require: 'rack/cache'
 gem 'awesome_print'
 
+# for heroku/monitoring
+gem 'newrelic_rpm'
+
 # for models
 gem "mongoid", "~> 2.4"
 gem "bson_ext", "~> 1.5"

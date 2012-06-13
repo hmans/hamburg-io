@@ -10,6 +10,9 @@ require 'happy'
 require 'happy/extras/resources'
 require 'happy/extras/static'
 
+# new relic
+require 'newrelic_rpm'
+
 # setup i18n
 I18n.load_path += Dir[File.join(File.dirname(__FILE__), '../config/locales', '*.yml').to_s]
 I18n.locale = 'de'
