@@ -7,7 +7,7 @@ Bundler.require
 
 # framework
 require 'happy'
-require 'happy/extras/resources'
+require 'happy/extras/active_model_resource_controller'
 require 'happy/extras/static'
 
 # new relic

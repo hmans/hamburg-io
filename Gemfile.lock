@@ -16,9 +16,9 @@ GIT
 
 GIT
   remote: git://github.com/hmans/happy.git
-  revision: b14a5f1c462db89a26eb40f10b664fc598a3b8b0
+  revision: 97677f734f3b030f675a53856f0b762951ceaf3e
   specs:
-    happy (0.1.0.pre24)
+    happy (0.1.0.pre25)
       activesupport (~> 3.1)
       allowance (>= 0.1.1)
       happy-helpers (~> 0.1.0.pre11)

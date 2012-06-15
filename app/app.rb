@@ -1,8 +1,5 @@
-require 'happy/extras/resources'
-
 module HamburgIo
   class Application < Happy::Controller
-    include Happy::Extras::Resources
     include Helpers
 
     def route
@@ -12,7 +9,7 @@ module HamburgIo
       route_assets
       route_authentication
 
-      resource Event, :role => resource_role
+      on('events') { resource Event, role: resource_role }
 
       redirect! '/events'
 
@@ -39,6 +36,10 @@ module HamburgIo
           can.index! Event, -> e { e.in_the_future }
         end
       end
+    end
+
+    def resource(klass, options = {}, &blk)
+      run Happy::Extras::ActiveModelResourceController, options.merge(:class => klass), &blk
     end
 
     def route_assets
