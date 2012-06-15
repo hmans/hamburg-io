@@ -1,5 +1,8 @@
+require 'happy/extras/resources'
+
 module HamburgIo
   class Application < Happy::Controller
+    include Happy::Extras::Resources
     include Helpers
 
     def route
