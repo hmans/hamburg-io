@@ -16,9 +16,9 @@ GIT
 
 GIT
   remote: git://github.com/hmans/happy.git
-  revision: 1b1052b7989a8cfe4b87ecb004acd3cad0b0dbaa
+  revision: 0cca827f28815902a6f72030bc42478ab6009b23
   specs:
-    happy (0.1.0.pre21)
+    happy (0.1.0.pre22)
       activesupport (~> 3.1)
       allowance (>= 0.1.1)
       happy-helpers (~> 0.1.0.pre11)
@@ -72,7 +72,7 @@ GEM
       mongo (<= 1.6.2)
       tzinfo (~> 0.3.22)
     multi_json (1.3.6)
-    newrelic_rpm (3.3.5)
+    newrelic_rpm (3.4.0)
     oauth (0.4.6)
     omniauth (1.1.0)
       hashie (~> 1.2)
