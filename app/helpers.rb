@@ -38,9 +38,9 @@ module HamburgIo
 
     class OmniAuthCallback < Happy::Controller
       def route
-        path 'auth' do
-          path :provider do
-            path 'callback' do
+        on 'auth' do
+          on :provider do
+            on 'callback' do
               auth = request.env['omniauth.auth']
 
               user = User.find_or_initialize_by :identity => [auth['provider'], auth['uid']]

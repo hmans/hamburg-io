@@ -39,20 +39,20 @@ module HamburgIo
     end
 
     def route_assets
-      path 'favicon.ico', 'images' do
+      on 'favicon.ico', 'images' do
         run Happy::Extras::Static, path: './public'
       end
 
-      path 'assets' do
+      on 'assets' do
         layout false
         max_age 1.year
 
-        get 'application-:timestamp.css'  do
+        on 'application-:timestamp.css'  do
           content_type 'text/css'
           render 'application.scss'
         end
 
-        get 'application-:timestamp.js' do
+        on 'application-:timestamp.js' do
           run JavaScriptPacker, :files => 'application.js'
         end
       end
@@ -61,7 +61,7 @@ module HamburgIo
     def route_authentication
       run OmniAuthCallback
 
-      path 'logout' do
+      on 'logout' do
         session['user_id'] = nil
         redirect! '/'
       end
