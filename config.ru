@@ -1,5 +1,11 @@
 require './config/boot'
 
+# new relic!
+if Happy.env.development?
+  require 'new_relic/rack/developer_mode'
+  use NewRelic::Rack::DeveloperMode
+end
+
 # cookies!
 use Rack::Session::Cookie
 
