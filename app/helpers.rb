@@ -1,6 +1,5 @@
 module HamburgIo
   module Helpers
-
     def asset_timestamp
       ENV['ASSET_TIMESTAMP'] ||= Time.now.to_i.to_s
     end

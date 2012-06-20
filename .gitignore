@@ -3,3 +3,5 @@
 .powenv
 log/
 tmp/
+doc/
+.yardoc/

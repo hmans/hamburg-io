@@ -1,6 +1,7 @@
 module HamburgIo
   class Application < Happy::Controller
-    include Helpers
+    helpers HamburgIo::Helpers
+    helpers HappyHelpers::Helpers
 
     def route
       setup_permissions
@@ -12,15 +13,6 @@ module HamburgIo
       on('events') { resource Event, role: resource_role }
 
       redirect! '/events'
-
-      # Auch heiter:
-      #
-      # @events = Happy::Extras::Resources::ResourceMounter.new(self,
-      #   :class => Event, :role => resource_role)
-      #
-      # @events.route
-      #
-      # redirect! @events.root_url
     end
 
     def setup_permissions
