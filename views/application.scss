@@ -1,32 +1,28 @@
-@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic);
 @import "schnitzelstyle";
 
-$font-default: 17px "PT Sans",Arial,Helvetica,sans-serif;
+/* configuration */
+$font-default: 17px "Helvetica Neue",Arial,Helvetica,sans-serif;
 
+/* mixins */
+
+/* defaults */
 *:first-child { margin-top: 0 !important };
 *:last-child  { margin-bottom: 0 !important };
 
+/* body */
 body {
   font: $font-default;
   padding: 50px 0;
   background-color: #fff;
   color: #333;
-
-  background: url(/images/bg.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
 }
 
+/* main content container */
 .container {
   width: 800px;
   max-width: 80%;
   margin: 0 auto;
-  background: rgba(#fff, 0.95);
-  padding: 50px;
-  box-shadow: rgba(#000, 0.5) 3px 3px 15px;
-  border-radius: 5px;
+  line-height: 1.45;
 
   &>header {
     color: #333;
@@ -71,7 +67,7 @@ body {
   }
 }
 
-
+/* events */
 .event {
   padding: 1em 0;
   border-top: 2px dotted #ddd;
@@ -101,20 +97,21 @@ body {
   }
 
   &:hover { a.permalink { display: inline-block }}
+
+  .notice {
+    color: #900;
+    padding: 1em;
+    border: 1px dotted #900;
+  }
+
+  hr {
+    border: none;
+    border-bottom: 1px dotted #ccc;
+    height: 0;
+  }
 }
 
-.notice {
-  color: #900;
-  padding: 1em;
-  border: 1px dotted #900;
-}
-
-hr {
-  border: none;
-  border-bottom: 1px dotted #ccc;
-  height: 0;
-}
-
+/* forms */
 form {
   .input {
     margin: 0.5em 0;
