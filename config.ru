@@ -12,6 +12,9 @@ use Rack::Session::Cookie
 # cache!
 use Rack::Cache if Happy.env.production?
 
+# code reloading
+use Rack::Reloader, 0 if Happy.env.development?
+
 # omniauth!
 use OmniAuth::Builder do
   unless Happy.env.production?
