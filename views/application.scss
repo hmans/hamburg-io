@@ -13,6 +13,8 @@ $font-default: 17px "Helvetica Neue",Arial,Helvetica,sans-serif;
 
 /* body */
 body {
+  @include box-model(border-box);
+
   font: $font-default;
   background-color: #fff;
   color: #333;
