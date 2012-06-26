@@ -27,6 +27,20 @@ class MarkdownRenderer < Redcarpet::Render::HTML
   include Redcarpet::Render::SmartyPants
 end
 
+# Compass has some really nice Sass mixins, and I would like to use them outside
+# of Rails (or Sinatra) without having to configure Compass through a configuration file
+# or framework-level configuration. From Sass' perspective, it's simply a matter of
+# adding the path containing Compass' Sass stylesheets to the Sass engine's
+# load path, so let's do that until there's a smoother way.
+#
+begin
+  COMPASS_PATH = Gem::Specification.find_by_name("compass").gem_dir + "/frameworks/compass/stylesheets"
+  Sass::Engine::DEFAULT_OPTIONS[:load_paths] << COMPASS_PATH
+rescue Gem::LoadError
+  puts "Couldn't add Compass to Sass load path :("
+  exit 1
+end
+
 # my own code
 require 'models'
 require 'helpers'

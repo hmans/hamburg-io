@@ -11,10 +11,12 @@ else
 end
 
 # application
+gem 'sass'
 gem 'haml'
 gem 'thin'
 gem 'unicorn'
 gem 'schnitzelstyle', github: 'hmans/schnitzelstyle'
+gem 'compass'
 gem 'packr'
 gem 'redcarpet'
 gem 'rack-cache', require: 'rack/cache'
