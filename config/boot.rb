@@ -33,8 +33,7 @@ end
 # adding the path containing Compass' Sass stylesheets to the Sass engine's
 # load path, so let's do that until there's a smoother way.
 #
-compass_framework = Compass::Frameworks::ALL.find { |f| f.name == "compass" }
-Sass::Engine::DEFAULT_OPTIONS[:load_paths] << compass_framework.stylesheets_directory
+Sass::Engine::DEFAULT_OPTIONS[:load_paths] << Compass::Frameworks["compass"].stylesheets_directory
 
 # my own code
 require 'models'
