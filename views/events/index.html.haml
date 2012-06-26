@@ -1,2 +1,14 @@
-.events
-  = render @events
+- if (events = @events.this_week).count > 0
+  %h2 Diese Woche
+  .events
+    = render events
+
+- if (events = @events.next_week).count > 0
+  %h2 Nächste Woche
+  .events
+    = render events
+
+- if (events = @events.later).count > 0
+  %h2 Spätere Veranstaltungen
+  .events
+    = render events

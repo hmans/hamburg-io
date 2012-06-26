@@ -18,6 +18,18 @@ class Event
 
   scope :verified, -> { where(verified: true) }
   scope :in_the_future, -> { where(:starts_at.gt => Time.now) }
+  scope :this_week, -> do
+    t = Time.now
+    where(:starts_at.gte => t.beginning_of_week, :starts_at.lt => t.end_of_week)
+  end
+  scope :next_week, -> do
+    t = 1.week.from_now
+    where(:starts_at.gte => t.beginning_of_week, :starts_at.lt => t.end_of_week)
+  end
+  scope :later, -> do
+    t = 2.week.from_now
+    where(:starts_at.gte => t.beginning_of_week)
+  end
 end
 
 class User
