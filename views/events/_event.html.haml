@@ -1,7 +1,8 @@
 .event{class: event.verified? ? 'verified' : 'unverified'}
+  %h3
+    %a{href: event.url}=h event.title
+
   .info
-    %h3
-      %a{href: event.url}=h event.title
     =l event.starts_at, :format => :long
     - if event.location.present?
       &middot;

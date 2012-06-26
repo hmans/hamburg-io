@@ -82,33 +82,25 @@ body {
     margin-top: 1.5em;
     margin-bottom: 1em;
   }
-
-  p.actions {
-    display: inline-block;
-    padding: 5px 10px;
-    border-radius: 3px;
-    background: rgba(#99c, 0.3);
-  }
 }
 
 /* events */
 .event {
-  padding: 1em 0;
-  border-top: 2px dotted #ddd;
-  &:first-child { border-top: none };
+  padding: 2em 0;
 
   .info {
-    color: #bbb;
+    color: #ccc;
     font-weight: bold;
     font-size: 120%;
-
-    h3 {
-      font-size: 120%;
-      margin: 0;
-      a { color: #333; }
-    }
-
     a.permalink { display: none; text-decoration: none; color: #ddd; }
+  }
+
+  h3 {
+    font-size: 2em;
+    line-height: 100%;
+    margin: 0;
+    text-transform: uppercase;
+    a { color: #333; text-decoration: none;}
   }
 
   .description {
