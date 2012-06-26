@@ -10,7 +10,13 @@
       %header
         %h1
           %a{href: '/'} hamburg.io
-        %p Veranstaltungen für Entwickler, Designer und andere Online-Leute. In Hamburg.
+        %p
+          %strong Veranstaltungen für Entwickler, Designer und andere Online-Leute. In Hamburg.
+          Fehlt noch etwas?
+          - if current_user
+            #{link_to "Eintragen", :events, :new}!
+          - else
+            #{link_to "Einloggen und eintragen", :auth, :twitter}!
 
       = yield
 

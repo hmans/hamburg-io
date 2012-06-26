@@ -48,7 +48,6 @@ body {
 
     h1 {
       display: inline-block;
-      float: left;
       font-size: 250%;
       margin-right: 30px;
       border-radius: 5px;
@@ -56,8 +55,16 @@ body {
       background-color: #c33;
       padding: 0 15px;
     }
-    p { margin: 0 }
-    a { text-decoration: none }
+    p {
+      font-weight: normal;
+      margin: 0;
+      a {
+        color: #c33;
+      }
+    }
+    a {
+      text-decoration: none;
+    }
   }
 
   &>footer {
