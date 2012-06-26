@@ -82,6 +82,18 @@ body {
     margin-top: 1.5em;
     margin-bottom: 1em;
   }
+
+  .notice {
+    color: #900;
+    padding: 1em;
+    border: 1px dotted #900;
+  }
+
+  hr {
+    border: none;
+    border-bottom: 1px dotted #ccc;
+    height: 0;
+  }
 }
 
 /* events */
@@ -109,22 +121,10 @@ body {
   }
 
   &.unverified {
-    .info { h3 { a { color: #900 !important; }}}
+    h3 { a { color: #900 !important; }}
   }
 
   &:hover { a.permalink { display: inline-block }}
-
-  .notice {
-    color: #900;
-    padding: 1em;
-    border: 1px dotted #900;
-  }
-
-  hr {
-    border: none;
-    border-bottom: 1px dotted #ccc;
-    height: 0;
-  }
 }
 
 /* forms */
