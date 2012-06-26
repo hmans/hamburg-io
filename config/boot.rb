@@ -33,13 +33,8 @@ end
 # adding the path containing Compass' Sass stylesheets to the Sass engine's
 # load path, so let's do that until there's a smoother way.
 #
-begin
-  COMPASS_PATH = Gem::Specification.find_by_name("compass").gem_dir + "/frameworks/compass/stylesheets"
-  Sass::Engine::DEFAULT_OPTIONS[:load_paths] << COMPASS_PATH
-rescue Gem::LoadError
-  puts "Couldn't add Compass to Sass load path :("
-  exit 1
-end
+compass_framework = Compass::Frameworks::ALL.find { |f| f.name == "compass" }
+Sass::Engine::DEFAULT_OPTIONS[:load_paths] << compass_framework.stylesheets_directory
 
 # my own code
 require 'models'
