@@ -4,6 +4,8 @@
 $font-default: 17px "Helvetica Neue",Arial,Helvetica,sans-serif;
 
 /* mixins */
+@mixin when-smartphone { @include when-narrower-than(480px) { @content; } }
+@mixin when-desktop    { @include when-wider-than(1024px) { @content; } }
 
 /* defaults */
 *:first-child { margin-top: 0 !important };
@@ -12,17 +14,29 @@ $font-default: 17px "Helvetica Neue",Arial,Helvetica,sans-serif;
 /* body */
 body {
   font: $font-default;
-  padding: 50px 0;
   background-color: #fff;
   color: #333;
+
+  @include when-smartphone {
+    font-size: 90%;
+  }
 }
 
 /* main content container */
 .container {
-  width: 800px;
-  max-width: 80%;
-  margin: 0 auto;
+  width: 80%;
+  max-width: 800px;
+  margin: 50px auto !important;
   line-height: 1.45;
+
+  @include when-smartphone {
+    width: 100%;
+    padding: 1em;
+    margin: 10px auto !important;
+  }
+  @include when-desktop {
+    width: 800px;
+  }
 
   &>header {
     color: #333;
@@ -45,6 +59,7 @@ body {
   }
 
   &>footer {
+    font-size: 85%;
     margin-top: 100px;
     color: #bbb;
     text-align: right;
