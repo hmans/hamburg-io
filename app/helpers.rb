@@ -27,7 +27,7 @@ module HamburgIo
       def route
         content_type 'text/javascript'
 
-        plain = [options[:files]].flatten.map do |filename|
+        plain = [settings[:files]].flatten.map do |filename|
           File.read("./app/assets/#{filename}")
         end.join("\n")
 
