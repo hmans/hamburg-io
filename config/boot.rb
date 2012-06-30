@@ -1,40 +1,40 @@
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '../lib'))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '../app'))
-
+# Let Bundler do its thing.
+#
 require 'rubygems'
 require 'bundler/setup'
 Bundler.require
 
-# framework
+# Load dependencies from Happy.
+#
 require 'happy'
 require 'happy/extras/static'
 
-# new relic
-require 'newrelic_rpm'
-NewRelic::Agent.manual_start
-Happy::Controller.extend NewRelic::Agent::Instrumentation::Rack
+# Load NewRelic in production.
+#
+if Happy.env.production?
+  require 'newrelic_rpm'
+  NewRelic::Agent.manual_start
+  Happy::Controller.extend NewRelic::Agent::Instrumentation::Rack
+end
 
-# setup i18n
+# Setup I18n.
+#
 I18n.load_path += Dir[File.join(File.dirname(__FILE__), '../config/locales', '*.yml').to_s]
 I18n.locale = 'de'
 
+# Tell Mongoid where to connect to.
+#
 Mongoid::Config.from_hash(
   'uri' => ENV['MONGOLAB_URI'] || ENV['MONGOHQ_URL'] || ENV['MONGO_URL'] || 'mongodb://localhost/eventually'
 )
 
+# A little MarkdownRenderer class for Redcarpet.
+#
 class MarkdownRenderer < Redcarpet::Render::HTML
   include Redcarpet::Render::SmartyPants
 end
 
-# Compass has some really nice Sass mixins, and I would like to use them outside
-# of Rails (or Sinatra) without having to configure Compass through a configuration file
-# or framework-level configuration. From Sass' perspective, it's simply a matter of
-# adding the path containing Compass' Sass stylesheets to the Sass engine's
-# load path, so let's do that until there's a smoother way.
+# Load the files contained in the 'app' directory
 #
-# Sass::Engine::DEFAULT_OPTIONS[:load_paths] << Compass::Frameworks["compass"].stylesheets_directory
-
-# my own code
-require 'models'
-require 'helpers'
-require 'app'
+Dir['./app/*.rb'].each { |name| require name }
+Dir['./app/**/*.rb'].each { |name| require name }

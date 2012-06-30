@@ -1,15 +1,20 @@
 require './config/boot'
 
-# cookies!
+# We're using cookies, so let's load a cookies middleware.
+#
 use Rack::Session::Cookie
 
-# cache!
+# Enable Rack::Cache in production.
+#
 use Rack::Cache if Happy.env.production?
 
-# code reloading
+# Enable live code reloading in devleopment. Note that this will not reload
+# config.ru or boot.rb.
+#
 use Rack::Reloader, 0 if Happy.env.development?
 
-# omniauth!
+# Configure the OmniAuth middleware.
+#
 use OmniAuth::Builder do
   unless Happy.env.production?
     provider :developer, fields: [:email], uid_field: :email
@@ -18,5 +23,6 @@ use OmniAuth::Builder do
   provider :twitter, ENV['TWITTER_KEY'], ENV['TWITTER_SECRET']
 end
 
-# run the hamburg.io app
+# That's it. Let's run the application!
+#
 run HamburgIo::Application
