@@ -27,6 +27,7 @@ I18n.locale = 'de'
 Mongoid::Config.from_hash(
   'uri' => ENV['MONGOLAB_URI'] || ENV['MONGOHQ_URL'] || ENV['MONGO_URL'] || 'mongodb://localhost/eventually'
 )
+Mongoid.logger.level = 3 if Happy.env.production?
 
 # A little MarkdownRenderer class for Redcarpet.
 #
