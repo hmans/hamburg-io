@@ -31,7 +31,7 @@ module HamburgIo
     end
 
     def resource(klass, options = {}, &blk)
-      run Happy::Extras::ActiveModelResourceController, options.merge(:class => klass), &blk
+      run Happy::Resources::ActiveModelResourceController, options.merge(:class => klass), &blk
     end
 
     def route_assets

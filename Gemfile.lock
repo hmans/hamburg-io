@@ -14,10 +14,17 @@ GIT
       money (~> 5.0)
 
 GIT
-  remote: git://github.com/hmans/happy.git
-  revision: 0aead8fdf83742ea9355b0a92bb1917232ad769f
+  remote: git://github.com/hmans/happy-resources.git
+  revision: 350277651ed30cfc307b441d8570dbb62a2f7cb7
   specs:
-    happy (0.1.0.pre28)
+    happy-resources (0.1.0.pre1)
+      happy (>= 0.1.0)
+
+GIT
+  remote: git://github.com/hmans/happy.git
+  revision: 31dbae5ec1375eb7d75ebc85dd3156b9249dbff6
+  specs:
+    happy (0.1.0)
       activesupport (~> 3.1)
       allowance (>= 0.1.1)
       rack (~> 1.4)
@@ -119,6 +126,7 @@ DEPENDENCIES
   haml
   happy!
   happy-helpers!
+  happy-resources!
   mongoid (~> 2.4)
   newrelic_rpm
   omniauth

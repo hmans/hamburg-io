@@ -2,10 +2,12 @@ source :rubygems
 
 if ENV['DEV']
   gem 'happy', path: '../happy'
+  gem 'happy-resources', path: '../happy-resources'
   gem 'happy-helpers', path: '../happy-helpers'
   gem 'allowance', path: '../allowance'
 else
   gem 'happy', github: 'hmans/happy'
+  gem 'happy-resources', github: 'hmans/happy-resources'
   gem 'happy-helpers', github: 'hmans/happy-helpers'
   gem 'allowance', github: 'hmans/allowance'
 end
