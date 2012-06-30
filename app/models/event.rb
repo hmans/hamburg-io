@@ -31,11 +31,3 @@ class Event
     where(:starts_at.gte => t.beginning_of_week)
   end
 end
-
-class User
-  include Mongoid::Document
-
-  field :name,     type: String
-  field :identity, type: Array
-  field :admin,    type: Boolean, default: false
-end
