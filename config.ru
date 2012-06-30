@@ -25,4 +25,4 @@ end
 
 # That's it. Let's run the application!
 #
-run HamburgIo::Application
+run HamburgIo
